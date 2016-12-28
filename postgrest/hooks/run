@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export LD_LIBRARY_PATH="`hab pkg path core/postgresql`/lib"
+
+cd {{pkg.svc_bin_path}}
+exec postgrest {{cfg.connection}} {{cfg.options}} 2>&1
