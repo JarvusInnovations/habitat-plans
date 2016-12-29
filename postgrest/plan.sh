@@ -11,6 +11,7 @@ pkg_build_deps=(core/patchelf)
 pkg_deps=(core/postgresql core/glibc core/gcc-libs core/zlib core/gmp)
 
 do_build() {
+  # skip build phase because we're downloading a pre-built binary release
   return 0
 }
 
@@ -18,4 +19,9 @@ do_install() {
   mkdir -p ${pkg_prefix}/bin
   cp -av $HAB_CACHE_SRC_PATH/postgrest ${pkg_prefix}/bin/
   patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" --set-rpath "${LD_RUN_PATH}" ${pkg_prefix}/bin/postgrest
+}
+
+do_strip() {
+  # skip stripping binary as it may cause issues with patched binaries
+  return 0
 }
