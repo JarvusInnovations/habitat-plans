@@ -1,2 +1,2 @@
-connection="postgres://user:pass@host:port/db"
-options=""
+connection="postgres://hab@/postgres"
+options="-a hab"
