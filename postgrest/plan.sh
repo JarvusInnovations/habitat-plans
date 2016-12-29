@@ -17,5 +17,5 @@ do_build() {
 do_install() {
   mkdir -p ${pkg_prefix}/bin
   cp -av $HAB_CACHE_SRC_PATH/postgrest ${pkg_prefix}/bin/
-  patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" --set-rpath "${LD_RUN_PATH}" ${pkg_prefix}/bin/postgrest \;
+  patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" --set-rpath "${LD_RUN_PATH}" ${pkg_prefix}/bin/postgrest
 }
