@@ -14,6 +14,7 @@ pkg_deps=(
   core/coreutils
   core/sed
   core/gawk
+  core/ruby
 )
 
 do_unpack() {
