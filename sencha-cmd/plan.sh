@@ -8,6 +8,7 @@ pkg_build_deps=(
   core/zip
   core/gzip
   core/which
+  core/patchelf
 )
 pkg_deps=(
   core/jre8
@@ -15,6 +16,11 @@ pkg_deps=(
   core/sed
   core/gawk
   core/ruby
+  core/glibc
+  core/zlib
+  core/fontconfig
+  core/freetype
+  core/gcc-libs
 )
 
 do_unpack() {
@@ -34,4 +40,16 @@ do_install() {
   mkdir "$pkg_prefix/bin" "$pkg_prefix/dist"
   ./SenchaCmd-*.sh -q -a -dir "$pkg_prefix/dist"
   ln -s ../dist/sencha "$pkg_prefix/bin/"
+
+  build_line "Patching ELF binaries:"
+  find "$pkg_prefix/dist" -type f -executable \
+    -exec sh -c 'file -i "$1" | grep -q "x-executable; charset=binary"' _ {} \; \
+    -print \
+    -exec patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" --set-rpath "${LD_RUN_PATH}" {} \;
+
+  return 0
+}
+
+do_strip() {
+  return 0
 }
