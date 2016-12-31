@@ -2,10 +2,11 @@ pkg_name=postgrest
 pkg_origin=jarvus
 pkg_version=0.x.x
 pkg_source=https://github.com/begriffs/postgrest.git
+ghc_version=8.0.1
 pkg_build_deps=(
   core/git
   jarvus/haskell-stack
-  jarvus/ghc-archive
+  jarvus/ghc-archive/${ghc_version}
   core/patchelf
 )
 pkg_deps=(
