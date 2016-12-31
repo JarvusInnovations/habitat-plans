@@ -15,6 +15,7 @@ pkg_deps=(
   core/libffi
   core/gawk
   core/perl
+  jarvus/ncurses5-compat-libs
 )
 
 ghc_patch_executable() {
