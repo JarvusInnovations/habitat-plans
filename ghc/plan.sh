@@ -18,39 +18,44 @@ pkg_deps=(
   jarvus/ncurses5-compat-libs
 )
 
+ghc_patch_rpath() {
+  RELATIVE_TO=$(dirname $1)
+  RELATIVE_PATHS=$((for LIB_PATH in ${@:2}; do echo '$ORIGIN/'$(realpath --relative-to="$RELATIVE_TO" "$LIB_PATH"); done) | paste -sd ':')
+  patchelf --set-rpath "${LD_RUN_PATH}:$RELATIVE_PATHS" $1
+}
+export -f ghc_patch_rpath
+
 do_build() {
-  echo "Patching ELF binaries:"
+  build_line "Fixing interpreter for binaries:"
+
   find . -type f -executable \
     -exec sh -c 'file -i "$1" | grep -q "x-executable; charset=binary"' _ {} \; \
     -print \
-    -exec patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" --set-rpath "${LD_RUN_PATH}" {} \;
+    -exec patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" {} \;
 
-# DOESN'T WORK BECAUSE INSTALL PROCESS TRIES TO STRIP THEM LATER
-#  echo "Patching shared libraries:"
-#  find . -type f -name "*.so" \
-#    -print \
-#    -exec patchelf --set-rpath "${LD_RUN_PATH}" {} \;
+  export LD_LIBRARY_PATH="$LD_RUN_PATH"
 
-# SUGGESTED BY BUILT-IN STRIPPER BUT DOES NOTHING
-#  export LDFLAGS="$LDFLAGS -N"
-
-  # instead of using patchelf on libraries or making headers ok to patch with -N, just stick everything containing a .so in LD_LIBRARY_PATH
-  export LD_LIBRARY_PATH="$LD_RUN_PATH$(find $HAB_CACHE_SRC_PATH/$pkg_dirname -name '*.so' -printf ':%h')"
-attach
   ./configure --prefix=${pkg_prefix}
 }
 
 do_install() {
   do_default_install
 
-  # insert our monster LD_LIBRARY_PATH into each script
-  local PKG_LD_LIBRARY_PATH="$LD_RUN_PATH$(find $pkg_prefix/lib -name '*.so' -printf ':%h')"
+  pushd ${pkg_prefix} > /dev/null
 
-  echo "Patching wrapper scripts:"
-  find $pkg_prefix/bin -type f \
-    -exec sh -c 'file -i "$1" | grep -q "text/x-shellscript"' _ {} \; \
+attach
+
+  local GHC_LIB_PATHS=$(find . -name '*.so' -printf '%h\n' | uniq)
+
+  attach
+  build_line "Fixing rpath for binaries:"
+
+  find . -type f -executable \
+    -exec sh -c 'file -i "$1" | grep -q "x-executable; charset=binary"' _ {} \; \
     -print \
-    -exec sed -i "2i export LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:$PKG_LD_LIBRARY_PATH\"" {} \;
+    -exec bash -c 'ghc_patch_rpath $1 $2 ' _ "{}" "$GHC_LIB_PATHS" \;
+
+    popd > /dev/null
 }
 
 do_strip() {
