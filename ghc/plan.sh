@@ -43,11 +43,8 @@ do_install() {
 
   pushd ${pkg_prefix} > /dev/null
 
-attach
-
   local GHC_LIB_PATHS=$(find . -name '*.so' -printf '%h\n' | uniq)
 
-  attach
   build_line "Fixing rpath for binaries:"
 
   find . -type f -executable \
@@ -55,7 +52,7 @@ attach
     -print \
     -exec bash -c 'ghc_patch_rpath $1 $2 ' _ "{}" "$GHC_LIB_PATHS" \;
 
-    popd > /dev/null
+  popd > /dev/null
 }
 
 do_strip() {
