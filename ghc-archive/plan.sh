@@ -41,6 +41,17 @@ do_install() {
   pushd "${HAB_CACHE_SRC_PATH}" > /dev/null
   XZ_OPT="-0" tar -cJf "${pkg_prefix}/ghc-${pkg_version}.tar.xz" "${pkg_dirname}"
   popd > /dev/null
+
+  cat > "${pkg_prefix}/stack.yaml" <<- EOM
+resolver: ghc-${pkg_version}
+compiler: ghc-${pkg_version}
+ghc-variant: habitat-ghc
+setup-info:
+  ghc:
+    linux64-custom-habitat-ghc:
+      ${pkg_version}:
+        url: "${pkg_prefix}/ghc-${pkg_version}.tar.xz"
+EOM
 }
 
 do_strip() {
