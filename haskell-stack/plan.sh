@@ -4,8 +4,10 @@ pkg_version=1.3.2
 pkg_source=https://github.com/commercialhaskell/stack/releases/download/v${pkg_version}/stack-${pkg_version}-linux-x86_64-static.tar.gz
 pkg_shasum=ebeb76744c85b7cd5504b6e29f8912b920a247b7895a2d4a1fe9564f5c5ec164
 pkg_bin_dirs=(bin)
+
+ghc_version=8.0.1
 pkg_deps=(
-  jarvus/ghc
+  jarvus/ghc/${ghc_version}
   core/cacerts
   core/coreutils
   core/xz
@@ -24,7 +26,7 @@ pkg_deps=(
 )
 
 do_unpack() {
-  local source_dir=$HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version}
+  local source_dir=$HAB_CACHE_SRC_PATH/${pkg_dirname}
 
   mkdir "$source_dir"
 
@@ -44,11 +46,19 @@ do_install() {
 
   # generate wrapper script to provide path to root certificates
   mkdir $pkg_prefix/bin
-  local stack_wrapper=$pkg_prefix/bin/stack
-  echo "#!/bin/sh" > $stack_wrapper
-  echo "export SYSTEM_CERTIFICATE_PATH=\"$(pkg_path_for core/cacerts)/ssl/certs\"" >> $stack_wrapper
-  echo "exec $pkg_prefix/stack \$@" >> $stack_wrapper #--no-install-ghc --system-ghc 
-  chmod +x $stack_wrapper
+
+  cat > "$pkg_prefix/bin/stack" <<- EOM
+#!/bin/sh
+
+mkdir -p ~/.stack/programs/x86_64-linux
+ln -sf "$(pkg_path_for ghc)" ~/.stack/programs/x86_64-linux/ghc-${ghc_version}
+echo "installed" > ~/.stack/programs/x86_64-linux/ghc-${ghc_version}.installed
+
+export SYSTEM_CERTIFICATE_PATH="$(pkg_path_for cacerts)/ssl/certs"
+exec $pkg_prefix/stack \$@
+EOM
+
+  chmod +x "$pkg_prefix/bin/stack"
 }
 
 do_strip() {
