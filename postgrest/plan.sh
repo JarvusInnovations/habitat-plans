@@ -1,27 +1,70 @@
 pkg_name=postgrest
 pkg_origin=jarvus
-pkg_version=0.3.2.0
-pkg_source=https://github.com/begriffs/postgrest/releases/download/v${pkg_version}/${pkg_name}-${pkg_version}-ubuntu.tar.xz
-pkg_shasum=1ac3d636e2a072f316b9b192269d9a82447cf8041e66d31b9fcacb29e98f050d
-pkg_upstream_url=https://github.com/begriffs/postgrest
-pkg_maintainer="Chris Alfano <chris@jarv.us>"
-pkg_license=('MIT')
-pkg_bin_dirs=(bin)
-pkg_build_deps=(core/patchelf)
-pkg_deps=(core/postgresql core/glibc core/gcc-libs core/zlib core/gmp)
+pkg_version=0.x.x
+pkg_source=https://github.com/begriffs/postgrest.git
+pkg_build_deps=(
+  core/git
+  jarvus/haskell-stack
+  jarvus/ghc
+  core/patchelf
+  core/gmp
+  core/libffi
+  core/gcc
+  core/gcc-libs
+  core/glibc
+  core/gawk
+  core/gzip
+  core/perl
+)
+
+do_prepare() {
+  # stack will extract and run ghc and we won't be able to run patchelf on it
+  if [[ ! -r /lib/ld-linux-x86-64.so.2 ]]; then
+    ln -s "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" /lib/
+    _clean_lib=true
+  fi
+}
+
+do_download() {
+  return 0
+}
+
+do_verify() {
+  return 0
+}
+
+do_unpack() {
+  git clone ${pkg_source} "$HAB_CACHE_SRC_PATH/$pkg_dirname"
+}
 
 do_build() {
-  # skip build phase because we're downloading a pre-built binary release
-  return 0
+  cat > stack.yaml <<- EOM
+resolver: ghc-8.0.1
+compiler: ghc-8.0.1
+ghc-variant: habitat-ghc
+setup-info:
+  ghc:
+    linux64-custom-habitat-ghc:
+      8.0.1:
+        url: "/src/ghc.tar.xz"
+EOM
+
+  export LD_LIBRARY_PATH="$(pkg_path_for gmp)/lib:$(pkg_path_for libffi)/lib:$(pkg_path_for gcc-libs)/lib"
+  export AWK="$(pkg_path_for gawk)/bin/awk"
+
+  attach
+  hab pkg exec jarvus/haskell-stack stack build --install-ghc && return 0
+  attach
+  return 1
 }
 
 do_install() {
-  mkdir -p ${pkg_prefix}/bin
-  cp -av $HAB_CACHE_SRC_PATH/postgrest ${pkg_prefix}/bin/
-  patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" --set-rpath "${LD_RUN_PATH}" ${pkg_prefix}/bin/postgrest
+  return 0
 }
 
-do_strip() {
-  # skip stripping binary as it may cause issues with patched binaries
-  return 0
+do_end() {
+  # Clean up the `lib` link, if we set it up.
+  if [[ -n "$_clean_lib" ]]; then
+    rm -fv /lib/ld-linux-x86-64.so.2
+  fi
 }

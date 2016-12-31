@@ -4,7 +4,24 @@ pkg_version=1.3.2
 pkg_source=https://github.com/commercialhaskell/stack/releases/download/v${pkg_version}/stack-${pkg_version}-linux-x86_64-static.tar.gz
 pkg_shasum=ebeb76744c85b7cd5504b6e29f8912b920a247b7895a2d4a1fe9564f5c5ec164
 pkg_bin_dirs=(bin)
-pkg_deps=(core/cacerts)
+pkg_deps=(
+  jarvus/ghc
+  core/cacerts
+  core/coreutils
+  core/xz
+  core/make
+  core/tar
+  core/sed
+  core/gmp
+  core/gnupg
+  core/zlib
+  core/libffi
+  core/ncurses
+  core/gcc
+  core/gcc-libs
+  core/glibc
+  core/perl
+)
 
 do_unpack() {
   local source_dir=$HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version}
@@ -30,6 +47,11 @@ do_install() {
   local stack_wrapper=$pkg_prefix/bin/stack
   echo "#!/bin/sh" > $stack_wrapper
   echo "export SYSTEM_CERTIFICATE_PATH=\"$(pkg_path_for core/cacerts)/ssl/certs\"" >> $stack_wrapper
-  echo "exec $pkg_prefix/stack \$@" >> $stack_wrapper
+  echo "exec $pkg_prefix/stack \$@" >> $stack_wrapper #--no-install-ghc --system-ghc 
   chmod +x $stack_wrapper
+}
+
+do_strip() {
+  # skip stripping binary as it may cause issues with patched binaries
+  return 0
 }
