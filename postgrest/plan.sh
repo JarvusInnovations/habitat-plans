@@ -16,6 +16,7 @@ pkg_deps=(
   core/libffi
   core/gawk
   core/perl
+  jarvus/ncurses5-compat-libs
 )
 
 do_prepare() {
