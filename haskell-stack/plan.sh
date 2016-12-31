@@ -54,6 +54,14 @@ ln -sf "$(pkg_path_for ghc)" ~/.stack/programs/x86_64-linux/ghc-${ghc_version}
 echo "installed" > ~/.stack/programs/x86_64-linux/ghc-${ghc_version}.installed
 
 export SYSTEM_CERTIFICATE_PATH="$(pkg_path_for cacerts)/ssl/certs"
+
+#fix trouble stack has finding awk
+export AWK="$(pkg_path_for gawk)/bin/awk"
+
+# fix trouble stack has finding libgmp
+export LIBRARY_PATH="${LD_RUN_PATH}"
+export LD_LIBRARY_PATH="${LD_RUN_PATH}"
+
 exec $pkg_prefix/stack \$@
 EOM
 
