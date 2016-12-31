@@ -19,7 +19,7 @@ pkg_deps=(
 
 ghc_patch_executable() {
   RELATIVE_TO=$(dirname $1)
-  RELATIVE_PATHS=$((for LIB_PATH in ${@:3}; do realpath --relative-to="$RELATIVE_TO" "$LIB_PATH"; done) | paste -sd ':')
+  RELATIVE_PATHS=$((for LIB_PATH in ${@:3}; do echo '$ORIGIN/'$(realpath --relative-to="$RELATIVE_TO" "$LIB_PATH"); done) | paste -sd ':')
   patchelf --interpreter "$2" --set-rpath "${LD_RUN_PATH}:$RELATIVE_PATHS" $1
 }
 export -f ghc_patch_executable
