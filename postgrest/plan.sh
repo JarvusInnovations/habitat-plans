@@ -5,15 +5,15 @@ pkg_source=https://github.com/begriffs/postgrest.git
 pkg_build_deps=(
   core/git
   jarvus/haskell-stack
-  jarvus/ghc
+  jarvus/ghc-archive
   core/patchelf
+)
+pkg_deps=(
+  core/gcc
+  core/glibc
   core/gmp
   core/libffi
-  core/gcc
-  core/gcc-libs
-  core/glibc
   core/gawk
-  core/gzip
   core/perl
 )
 
@@ -38,18 +38,8 @@ do_unpack() {
 }
 
 do_build() {
-  cat > stack.yaml <<- EOM
-resolver: ghc-8.0.1
-compiler: ghc-8.0.1
-ghc-variant: habitat-ghc
-setup-info:
-  ghc:
-    linux64-custom-habitat-ghc:
-      8.0.1:
-        url: "/src/ghc.tar.xz"
-EOM
-
-  export LD_LIBRARY_PATH="$(pkg_path_for gmp)/lib:$(pkg_path_for libffi)/lib:$(pkg_path_for gcc-libs)/lib"
+  export LD_LIBRARY_PATH="$LD_RUN_PATH"
+  export STACK_YAML="$(pkg_path_for ghc-archive)/stack.yaml"
   export AWK="$(pkg_path_for gawk)/bin/awk"
 
   attach
