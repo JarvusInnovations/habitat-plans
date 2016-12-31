@@ -26,8 +26,8 @@ ghc_patch_executable() {
 export -f ghc_patch_executable
 
 do_build() {
-  INTERPRETER="$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2"
-  GHC_LIB_PATHS=$(find . -name '*.so' -printf '%h\n' | uniq)
+  local INTERPRETER="$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2"
+  local GHC_LIB_PATHS=$(find . -name '*.so' -printf '%h\n' | uniq)
 
   build_line "Patching ELF binaries:"
 
