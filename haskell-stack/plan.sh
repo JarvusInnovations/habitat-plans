@@ -10,19 +10,18 @@ pkg_deps=(
   jarvus/ghc/${ghc_version}
   core/cacerts
   core/coreutils
-  core/xz
+  core/gawk
+  core/sed
+  core/perl
   core/make
   core/tar
-  core/sed
+  core/xz
+  core/zlib
   core/gmp
   core/gnupg
-  core/zlib
   core/libffi
-  core/ncurses
   core/gcc
-  core/gcc-libs
   core/glibc
-  core/perl
 )
 
 do_unpack() {
