@@ -9,6 +9,7 @@ pkg_build_deps=(
   core/patchelf
   core/gcc
   core/postgresql
+  core/zlib
 )
 pkg_deps=(
 )
@@ -26,9 +27,11 @@ do_unpack() {
 }
 
 do_build() {
-  attach
-  stack build && return 0
-  attach
+  export LIBRARY_PATH="$LIBRARY_PATH:$(pkg_path_for postgresql)/lib"
+  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(pkg_path_for postgresql)/lib"
+
+  stack build --extra-include-dirs="$(pkg_path_for zlib)/include" && return 0
+
   return 1
 }
 
