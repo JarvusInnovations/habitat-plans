@@ -10,6 +10,7 @@ Plans for habitat published by Jarvus
 - ghc
 - haskell-stack
 - postgrest
+  - service hooks and config templates need to be built for the latest `master` version
 - sencha-cmd
 
 ## Work-in-progress
