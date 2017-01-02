@@ -28,7 +28,7 @@ do_download() {
     git clone --bare "${pkg_source}" "${GIT_DIR}"
   fi
 
-  pkg_version="$(git describe ${pkg_version} --always --tags)"
+  #pkg_version="$(git describe ${pkg_version} --always --tags)"
   pkg_dirname="${pkg_name}-${pkg_version}"
   pkg_prefix="$HAB_PKG_PATH/${pkg_origin}/${pkg_name}/${pkg_version}/${pkg_release}"
   pkg_artifact="$HAB_CACHE_ARTIFACT_PATH/${pkg_origin}-${pkg_name}-${pkg_version}-${pkg_release}-${pkg_target}.${_artifact_ext}"
