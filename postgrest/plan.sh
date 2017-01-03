@@ -3,7 +3,8 @@ pkg_origin=jarvus
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_upstream_url=https://github.com/begriffs/postgrest
 pkg_source=https://github.com/begriffs/postgrest.git
-pkg_version=master
+pkg_version=undefined
+pkg_branch=master
 pkg_bin_dirs=(bin)
 
 pkg_build_deps=(
@@ -11,10 +12,13 @@ pkg_build_deps=(
   core/git
   core/patchelf
   core/gcc
-  core/zlib
 )
 pkg_deps=(
   core/postgresql
+  core/gcc-libs
+  core/glibc
+  core/openssl
+  core/zlib
 )
 
 do_begin() {
@@ -28,7 +32,10 @@ do_download() {
     git clone --bare "${pkg_source}" "${GIT_DIR}"
   fi
 
-  #pkg_version="$(git describe ${pkg_version} --always --tags)"
+  pkg_commit="$(git rev-parse --short ${pkg_branch})"
+  pkg_last_tag="$(git describe --tags --abbrev=0 ${pkg_commit})"
+  pkg_last_version=${pkg_last_tag#v}
+  pkg_version="${pkg_last_version}+$(git rev-list ${pkg_last_tag}..${pkg_commit} --count).${pkg_commit}"
   pkg_dirname="${pkg_name}-${pkg_version}"
   pkg_prefix="$HAB_PKG_PATH/${pkg_origin}/${pkg_name}/${pkg_version}/${pkg_release}"
   pkg_artifact="$HAB_CACHE_ARTIFACT_PATH/${pkg_origin}-${pkg_name}-${pkg_version}-${pkg_release}-${pkg_target}.${_artifact_ext}"
@@ -44,7 +51,7 @@ do_unpack() {
   mkdir "${HAB_CACHE_SRC_PATH}/${pkg_dirname}"
 
   pushd "${HAB_CACHE_SRC_PATH}/${pkg_dirname}" > /dev/null
-  git --work-tree=. checkout --force "${pkg_version}"
+  git --work-tree=. checkout --force "${pkg_commit}"
   git --work-tree=. submodule update --init --recursive
   popd > /dev/null
 
