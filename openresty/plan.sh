@@ -19,6 +19,8 @@ pkg_deps=(
   core/coreutils
   core/perl
   core/which
+  core/postgresql
+  core/geoip
 )
 pkg_build_deps=(
   core/gcc
@@ -67,6 +69,9 @@ do_build() {
     --with-http_secure_link_module \
     --with-http_sub_module \
     --with-http_slice_module \
+    --with-http_postgres_module \
+    --with-http_geoip_module \
+    --with-http_dav_module \
     --with-cc-opt="$CFLAGS" \
     --with-ld-opt="$LDFLAGS" \
     --without-http_ssi_module \
