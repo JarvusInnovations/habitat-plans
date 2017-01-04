@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd {{pkg.svc_var_path}}
+exec node index.js -c {{cfg.config_path}} 2>&1
