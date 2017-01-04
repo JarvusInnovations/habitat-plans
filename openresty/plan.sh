@@ -7,8 +7,23 @@ pkg_license=('BSD-2-Clause')
 pkg_source=https://openresty.org/download/${pkg_name}-${pkg_version}.tar.gz
 pkg_upstream_url=http://openresty.org/
 pkg_shasum=7f9ca62cfa1e4aedf29df9169aed0395fd1b90de254139996e554367db4d5a01
-pkg_deps=(core/glibc core/gcc-libs core/libxml2 core/libxslt core/zlib core/bzip2 core/openssl core/pcre core/coreutils core/perl core/which)
-pkg_build_deps=(core/gcc core/make)
+pkg_deps=(
+  core/glibc
+  core/gcc-libs
+  core/libxml2
+  core/libxslt
+  core/zlib
+  core/bzip2
+  core/openssl
+  core/pcre
+  core/coreutils
+  core/perl
+  core/which
+)
+pkg_build_deps=(
+  core/gcc
+  core/make
+)
 pkg_lib_dirs=(lib)
 pkg_bin_dirs=(bin)
 pkg_include_dirs=(include)
