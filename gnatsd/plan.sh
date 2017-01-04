@@ -16,6 +16,7 @@ pkg_svc_run="${pkg_name}"
 do_begin() {
   export GOPATH="/hab/cache"
   parent_go_path="${GOPATH}/src/github.com/nats-io"
+  pkg_go_path="${parent_go_path}/${pkg_name}"
 }
 
 do_clean() {
@@ -26,12 +27,12 @@ do_clean() {
 
 do_prepare() {
   mkdir -p "${parent_go_path}"
-  ln -s "${PWD}" "${parent_go_path}/${pkg_name}"
+  ln -s "${PWD}" "${pkg_go_path}"
   return $?
 }
 
 do_build() {
-  pushd "${parent_go_path}/${pkg_name}" > /dev/null
+  pushd "${pkg_go_path}" > /dev/null
   go build
   local code=$?
   popd > /dev/null
@@ -41,6 +42,6 @@ do_build() {
 
 do_install() {
   mkdir -p "${pkg_prefix}/bin"
-  cp  "${pkg_name}" "${pkg_prefix}/bin/${pkg_name}"
+  cp "${pkg_name}" "${pkg_prefix}/bin/"
   return $?
 }
