@@ -10,7 +10,7 @@ pkg_shasum=18d6d1b014bfd262da101e15ed914e194b51b47e3e1a8ca4e8743c742d65310c
 pkg_deps=(core/go core/glibc)
 pkg_build_deps=(core/go core/coreutils core/gcc core/make)
 pkg_bin_dirs=(bin)
-pkg_svc_run="${pkg_name}-${pkg_version}"
+pkg_svc_run="${pkg_name}"
 
 do_build() {
   export GOPATH="${HAB_CACHE_SRC_PATH}/${pkg_dirname}"
