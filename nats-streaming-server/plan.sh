@@ -7,7 +7,7 @@ pkg_license=('MIT')
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_source=https://github.com/nats-io/nats-streaming-server/archive/v${pkg_version}.tar.gz
 pkg_shasum=4a8d2f7b27704b7671454bcd8a6a30a2a47de169b620d116ff373c1a9c13b9da
-pkg_deps=(core/go core/glibc)
+pkg_deps=(core/glibc)
 pkg_build_deps=(core/go core/coreutils core/gcc core/make)
 pkg_bin_dirs=(bin)
 pkg_svc_run="${pkg_name}"
@@ -31,13 +31,16 @@ do_prepare() {
 }
 
 do_build() {
+  pushd "${parent_go_path}/${pkg_name}" > /dev/null
   go build
-  return $?
-}
+  local code=$?
+  popd > /dev/null
 
+  return $code
+}
 
 do_install() {
   mkdir -p "${pkg_prefix}/bin"
-  cp  "${pkg_name}-${pkg_version}" "${pkg_prefix}/bin/${pkg_name}"
+  cp  "${pkg_name}" "${pkg_prefix}/bin/${pkg_name}"
   return $?
 }
