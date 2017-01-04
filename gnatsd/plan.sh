@@ -41,6 +41,6 @@ do_build() {
 
 do_install() {
   mkdir -p "${pkg_prefix}/bin"
-  cp  "${pkg_name}-${pkg_version}" "${pkg_prefix}/bin/${pkg_name}"
+  cp  "${pkg_name}" "${pkg_prefix}/bin/${pkg_name}"
   return $?
 }
