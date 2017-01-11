@@ -48,6 +48,10 @@ do_install() {
     -print \
     -exec patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" --set-rpath "${LD_RUN_PATH}" {} \;
 
+  build_line "Creating repo/.sencha directory"
+  mkdir -p "${pkg_prefix}/repo"
+  chmod 777 "${pkg_prefix}/repo"
+
   return 0
 }
 
