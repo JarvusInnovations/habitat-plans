@@ -21,6 +21,7 @@ pkg_deps=(
   core/fontconfig
   core/freetype
   core/gcc-libs
+  core/expat
 )
 
 do_unpack() {
