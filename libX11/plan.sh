@@ -4,9 +4,8 @@ pkg_version=1.6.4
 pkg_description="Core X11 protocol client library"
 pkg_upstream_url=https://github.com/mirror/libX11
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
-pkg_source=https://github.com/mirror/libX11/archive/libX11-${pkg_version}.tar.gz
-pkg_shasum=9c8555574f4d8a886fae560ddd0a952cd2647afb5469e26a20af8c8582b77eee
-pkg_dirname="${pkg_name}-${pkg_name}-${pkg_version}"
+pkg_source=https://www.x.org/archive/individual/lib/libX11-${pkg_version}.tar.bz2
+pkg_shasum=b7c748be3aa16ec2cbd81edc847e9b6ee03f88143ab270fb59f58a044d34e441
 pkg_include_dirs=(include)
 pkg_lib_dirs=(lib)
 pkg_build_deps=(
@@ -33,12 +32,3 @@ pkg_deps=(
   core/gcc-libs
   core/coreutils
 )
-
-
-do_build() {
-  export ACLOCAL_PATH="$(pkg_path_for automake)/share/aclocal/:$(pkg_path_for pkg-config)/share/aclocal/:$(pkg_path_for libtool)/share/aclocal/:$(pkg_path_for xorg-macros)/share/aclocal/:$(pkg_path_for libxtrans)/share/aclocal/"
-
-  ./autogen.sh  --prefix="${pkg_prefix}"
-
-  make
-}
