@@ -22,13 +22,11 @@ pkg_build_deps=(
   jarvus/xextproto
   jarvus/inputproto
   jarvus/kbproto
-  jarvus/libxcb
   jarvus/libpthread-stubs
   jarvus/xcb-proto
-  jarvus/libXau
 )
 pkg_deps=(
   core/glibc
-  core/gcc-libs
-  core/coreutils
+  jarvus/libxcb
+  jarvus/libXau
 )
