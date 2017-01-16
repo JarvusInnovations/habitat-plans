@@ -21,11 +21,10 @@ pkg_deps=(
   core/fontconfig
   core/freetype
   core/expat
-  jarvus/libX11
-  jarvus/libXrender
-  jarvus/libXext
-  jarvus/libxcb
-  jarvus/libXau
+
+  xorg/xlib
+  xorg/libxrender
+  xorg/libxext
 )
 
 
@@ -47,4 +46,9 @@ do_build() {
 
 do_install() {
   cp -rv * "${pkg_prefix}"
+}
+
+do_strip() {
+  # skip stripping binary as it may cause issues with patched binaries
+  return 0
 }
