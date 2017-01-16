@@ -46,6 +46,16 @@ do_build() {
 
 do_install() {
   cp -rv * "${pkg_prefix}"
+
+  build_line "Generating dummy fonts config and directory"
+  mkdir "${pkg_prefix}/fonts"
+  cat > "${pkg_prefix}/fonts.conf" <<- END_OF_CONF
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <dir>${pkg_prefix}/fonts</dir>
+</fontconfig>
+END_OF_CONF
 }
 
 do_strip() {
