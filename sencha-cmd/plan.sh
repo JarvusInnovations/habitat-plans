@@ -38,7 +38,7 @@ do_build() {
 }
 
 do_install() {
-  mkdir "$pkg_prefix/bin" "$pkg_prefix/dist"
+  mkdir "$pkg_prefix/dist"
   ./SenchaCmd-*.sh -q -a -dir "$pkg_prefix/dist"
   ln -s ../dist/sencha "$pkg_prefix/bin/"
 
