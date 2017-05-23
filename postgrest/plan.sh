@@ -4,7 +4,7 @@ pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_upstream_url=https://github.com/begriffs/postgrest
 pkg_source=https://github.com/begriffs/postgrest.git
 pkg_version=undefined
-pkg_branch=master
+pkg_branch=v0.4.0.0
 pkg_bin_dirs=(bin)
 
 pkg_build_deps=(
