@@ -1,3 +1,4 @@
+# TODO: rebuild with jre8 that has xorg deps
 pkg_name=sencha-cmd
 pkg_origin=jarvus
 pkg_version=5.1.3.61
