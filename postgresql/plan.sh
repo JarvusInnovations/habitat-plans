@@ -90,24 +90,28 @@ do_build() {
               --localstatedir="$pkg_svc_var_path"
 	make world
 
-  HAB_LIBRARY_PATH="$(pkg_path_for proj)/lib"
-  export LIBRARY_PATH="${LIBRARY_PATH}:${HAB_LIBRARY_PATH}"
-  build_line "Added habitat libraries to LIBRARY_PATH: ${HAB_LIBRARY_PATH}"
-
-  build_line "Building ${ext_postgis_dirname}"
-  pushd "$ext_postgis_cache_path" > /dev/null
-  ./configure --prefix="$pkg_prefix"
-  make
-  popd > /dev/null
+  # PostGIS can't be built until after postgresql is installed to $pkg_prefix
 }
 
 do_install() {
   make install-world
 
-  build_line "Installing ${ext_postgis_dirname}"
-  pushd "$ext_postgis_cache_path" > /dev/null
-  make install DESTDIR="${pkg_prefix}" REGRESS=1
-  popd > /dev/null
+  # make and install PostGIS extension
+  HAB_LIBRARY_PATH="$(pkg_path_for proj)/lib:${pkg_prefix}/lib"
+  export LIBRARY_PATH="${LIBRARY_PATH}:${HAB_LIBRARY_PATH}"
+  build_line "Added habitat libraries to LIBRARY_PATH: ${HAB_LIBRARY_PATH}"
 
-  attach
+  export PATH="${PATH}:${pkg_prefix}/bin"
+  build_line "Added postgresql binaries to PATH: ${pkg_prefix}/bin"
+
+  pushd "$ext_postgis_cache_path" > /dev/null
+
+  build_line "Building ${ext_postgis_dirname}"
+  ./configure --prefix="$pkg_prefix"
+  make
+
+  build_line "Installing ${ext_postgis_dirname}"
+  make install
+
+  popd > /dev/null
 }
