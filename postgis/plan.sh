@@ -12,15 +12,16 @@ pkg_build_deps=(
   core/perl
   core/libxml2
   core/make
+  core/diffutils
   #core/coreutils
-  
-  jarvus/geos
+
   jarvus/proj
   jarvus/gdal
 )
 pkg_deps=(
   core/postgresql
   core/glibc
+  jarvus/geos
 )
 
 do_build() {
