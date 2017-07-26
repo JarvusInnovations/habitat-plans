@@ -25,7 +25,7 @@ pkg_deps=(
 )
 
 do_build() {
-  HAB_LIBRARY_PATH="$(pkg_path_for proj)/lib:$(pkg_path_for glibc)/lib"
+  HAB_LIBRARY_PATH="$(pkg_path_for proj)/lib"
   export LIBRARY_PATH="${LIBRARY_PATH}:${HAB_LIBRARY_PATH}"
   build_line "Added habitat libraries to LIBRARY_PATH: ${HAB_LIBRARY_PATH}"
 
