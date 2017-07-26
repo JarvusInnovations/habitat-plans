@@ -25,7 +25,9 @@ pkg_deps=(
 )
 
 do_build() {
-  export LIBRARY_PATH="${LIBRARY_PATH}:$(pkg_path_for proj)/lib:$(pkg_path_for glibc)/lib"
+  HAB_LIBRARY_PATH="$(pkg_path_for proj)/lib:$(pkg_path_for glibc)/lib"
+  export LIBRARY_PATH="${LIBRARY_PATH}:${HAB_LIBRARY_PATH}"
+  build_line "Added habitat libraries to LIBRARY_PATH: ${HAB_LIBRARY_PATH}"
 
   do_default_build
   return $?
@@ -35,7 +37,7 @@ do_install() {
   # postgis' install does not handle prefix well: https://trac.osgeo.org/postgis/ticket/635
   # postgresql doesn't want to load extensions from place outside its prefix: http://www.postgresql-archive.org/Configurable-location-for-extension-control-files-td5757897.html
   # see also: https://github.com/NixOS/nixpkgs/pull/5926
-    
+
   make install DESTDIR="${pkg_prefix}" REGRESS=1
 
   pushd "${pkg_prefix}" >/dev/null
