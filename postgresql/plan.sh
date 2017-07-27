@@ -19,7 +19,11 @@ pkg_deps=(
   core/wal-e
 
   # for postgis
+  core/gcc
+  core/libxml2
   jarvus/geos
+  jarvus/proj
+  jarvus/gdal
 )
 pkg_build_deps=(
   core/coreutils
@@ -28,10 +32,7 @@ pkg_build_deps=(
 
   # for postgis
   core/perl
-  core/libxml2
   core/diffutils
-  jarvus/proj
-  jarvus/gdal
 )
 pkg_bin_dirs=(bin)
 pkg_include_dirs=(include)
