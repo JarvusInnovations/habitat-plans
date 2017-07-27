@@ -19,7 +19,7 @@ pkg_deps=(
   core/wal-e
 
   # for postgis
-  core/gcc-libs
+  core/gcc # postgis-*.so really only need gcc-libs in runtime, but since gcc is needed during build the libraries end up using the gcc paths
   core/libxml2
   jarvus/geos
   jarvus/proj
@@ -27,7 +27,6 @@ pkg_deps=(
 )
 pkg_build_deps=(
   core/coreutils
-  core/gcc
   core/make
 
   # for postgis
