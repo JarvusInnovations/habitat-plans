@@ -107,7 +107,6 @@ do_install() {
   pushd "$ext_postgis_cache_path" > /dev/null
 
   build_line "Building ${ext_postgis_dirname}"
-  attach
   ./configure --prefix="$pkg_prefix"
   make
 
