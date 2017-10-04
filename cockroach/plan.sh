@@ -1,8 +1,8 @@
 pkg_name=cockroach
 pkg_origin=core
 pkg_version=1.0.6
-pkg_description="A High Performance NATS Server written in Go."
-pkg_upstream_url=https://github.com/nats-io/gnatsd
+pkg_description="CockroachDB is a cloud-native SQL database for building global, scalable cloud services that survive disasters."
+pkg_upstream_url=https://github.com/cockroachdb/cockroach
 pkg_license=('Apache-2.0')
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_source=https://binaries.cockroachdb.com/cockroach-v${pkg_version}.src.tgz
