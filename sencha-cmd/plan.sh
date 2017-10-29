@@ -1,8 +1,8 @@
 pkg_name=sencha-cmd
 pkg_origin=jarvus
-pkg_version=6.2.0.103
+pkg_version=6.5.2.15
 pkg_source=http://cdn.sencha.com/cmd/${pkg_version%.*}/no-jre/SenchaCmd-${pkg_version%.*}-linux-amd64.sh.zip
-pkg_shasum=138dcb49df72fff322706036e21b2e5db11df741db8b325f39a8360c85f62bdf
+pkg_shasum=e7034669661c329c75cf21d7865dd9c6b0fe1d1dc225b14e5c019f3153da12ad
 pkg_bin_dirs=(bin)
 pkg_build_deps=(
   core/zip
