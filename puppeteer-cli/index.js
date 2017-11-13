@@ -2,25 +2,53 @@ const puppeteer = require('puppeteer');
 const fileUrl = require('file-url');
 
 const argv = require('yargs')
-    .usage('Usage: $0 [input-html-file] [output-pdf-file]')
-    .demandCommand(2)
-    .boolean('background')
-    .default('background', true)
-    .default('marginTop', '6.35mm')
-    .default('marginRight', '6.35mm')
-    .default('marginBottom', '14.11mm')
-    .default('marginLeft', '6.35mm')
-    .default('format', 'Letter')
+    .command({
+        command: 'print <input> <output>',
+        desc: 'Print an html file to pdf',
+        builder: {
+            background: {
+                default: true
+            },
+            marginTop: {
+                default: '6.25mm'
+            },
+            marginRight: {
+                default: '6.25mm'
+            },
+            marginBottom: {
+                default: '14.11mm'
+            },
+            marginLeft: {
+                default: '6.25mm'
+            },
+            format: {
+                default: 'Letter'
+            }
+        },
+        handler: async argv => {
+            try {
+                await print(argv);
+            } catch (err) {
+                console.error('Failed to generate pdf:', err);
+                process.exit(1);
+            }
+        }
+    })
+    .demandCommand()
+    .help()
     .argv;
 
-async function convert({ htmlPath, pdfPath }) {
+async function print(argv) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    const url = fileUrl(argv.input);
 
-    await page.goto(fileUrl(htmlPath));
+    console.log(`Loading ${url}`);
+    await page.goto(fileUrl(argv.input));
 
+    console.log(`Writing ${argv.output}`);
     await page.pdf({
-        path: pdfPath,
+        path: argv.output,
         format: argv.format,
         printBackground: argv.background,
         margin: {
@@ -31,19 +59,6 @@ async function convert({ htmlPath, pdfPath }) {
         }
     });
 
+    console.log('Done');
     await browser.close();
 }
-
-(async () => {
-    console.log(argv);
-
-    try {
-        await convert({
-            htmlPath: argv._[0],
-            pdfPath: argv._[1]
-        });
-    } catch (err) {
-        console.error('Failed to generate pdf:', err);
-        process.exit(1);
-    }
-})();
