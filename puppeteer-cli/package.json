@@ -1,0 +1,16 @@
+{
+  "name": "puppeteer-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris Alfano <chris@jarv.us>",
+  "license": "MIT",
+  "dependencies": {
+    "file-url": "^2.0.2",
+    "puppeteer": "^0.13.0",
+    "yargs": "^10.0.3"
+  }
+}
