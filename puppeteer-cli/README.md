@@ -2,43 +2,19 @@
 
 ## Habitat TODO
 
-- [ ] patchelf binaries
+- [X] patchelf binaries
 - Resolve dependencies:
-  - [ ] gconf-service
-  - [ ] libasound2
-  - [ ] libatk1.0-0
-  - [ ] libc6
-  - [ ] libcairo2
-  - [ ] libcups2
-  - [ ] libdbus-1-3
-  - [ ] libexpat1
-  - [ ] libfontconfig1
-  - [ ] libgcc1
-  - [ ] libgconf-2-4
-  - [ ] libgdk-pixbuf2.0-0
-  - [ ] libglib2.0-0
-  - [ ] libgtk-3-0
-  - [ ] libnspr4
-  - [ ] libpango-1.0-0
-  - [ ] libpangocairo-1.0-0
-  - [ ] libstdc++6
-  - [ ] libx11-6
-  - [ ] libx11-xcb1
-  - [ ] libxcb1
-  - [ ] libxcomposite1
-  - [ ] libxcursor1
-  - [ ] libxdamage1
-  - [ ] libxext6
-  - [ ] libxfixes3
-  - [ ] libxi6
-  - [ ] libxrandr2
-  - [ ] libxrender1
-  - [ ] libxss1
-  - [ ] libxtst6
-  - [ ] ca-certificates
-  - [ ] fonts-liberation
-  - [ ] libappindicator1
-  - [ ] libnss3
-  - [ ] lsb-release
-  - [ ] xdg-utils
-  - [ ] wget
+  - [ ] libXcomposite.so.1
+  - [ ] libXcursor.so.1
+  - [ ] libXdamage.so.1
+  - [ ] libcups.so.2
+  - [ ] libXss.so.1
+  - [ ] libXrandr.so.2
+  - [ ] libgconf-2.so.4
+  - [ ] libgio-2.0.so.0
+  - [ ] libasound.so.2
+  - [ ] libatk-1.0.so.0
+  - [ ] libatk-bridge-2.0.so.0
+  - [ ] libgtk-3.so.0
+  - [ ] libgdk-3.so.0
+  - [ ] libgdk_pixbuf-2.0.so.0
