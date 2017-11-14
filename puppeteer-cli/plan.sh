@@ -5,8 +5,25 @@ pkg_build_deps=(
   core/patchelf
 )
 pkg_deps=(
+  core/glib
   core/glibc
+  core/gcc-libs
   core/node
+  core/xlib
+  core/libxext
+  core/libxcb
+  core/libxrender
+  core/libxi
+  core/libxtst
+  core/libxau
+  core/cairo
+  core/pango
+  core/fontconfig
+  core/expat
+  core/dbus
+  core/nss
+  core/nspr
+  core/libxfixes
 )
 pkg_bin_dirs=(bin)
 
@@ -26,6 +43,12 @@ do_build () {
     -exec sh -c 'file -i "$1" | grep -q -E "x-(sharedlib|executable); charset=binary"' _ {} \; \
     -print \
     -exec patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" --set-rpath "${LD_RUN_PATH}" {} \;
+
+  # DEBUG DEPENDENCIES:
+  ldd node_modules/puppeteer/.local-chromium/linux-515411/chrome-linux/chrome > /src/chrome-ldd.txt
+  cat /src/chrome-ldd.txt
+  attach
+  # END DEBUG
 
   popd > /dev/null
 }
