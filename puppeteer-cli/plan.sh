@@ -1,7 +1,11 @@
 pkg_name=puppeteer
 pkg_origin=jarvus
 pkg_version="0.1.0"
+pkg_build_deps=(
+  core/patchelf
+)
 pkg_deps=(
+  core/glibc
   core/node
 )
 pkg_bin_dirs=(bin)
@@ -13,7 +17,16 @@ do_prepare() {
 
 do_build () {
   pushd "${CACHE_PATH}" > /dev/null
+
+  build_line "Installing dependencies with NPM"
   npm install
+
+  build_line "Patching ELF binaries:"
+  find "./node_modules" -type f -executable \
+    -exec sh -c 'file -i "$1" | grep -q -E "x-(sharedlib|executable); charset=binary"' _ {} \; \
+    -print \
+    -exec patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" --set-rpath "${LD_RUN_PATH}" {} \;
+
   popd > /dev/null
 }
 
