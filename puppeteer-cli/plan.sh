@@ -24,6 +24,9 @@ pkg_deps=(
   core/nss
   core/nspr
   core/libxfixes
+
+  # under development:
+  jarvus/gconf2
 )
 pkg_bin_dirs=(bin)
 
