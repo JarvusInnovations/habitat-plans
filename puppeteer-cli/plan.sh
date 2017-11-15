@@ -24,9 +24,11 @@ pkg_deps=(
   core/nss
   core/nspr
   core/libxfixes
+  core/atk
+  core/gdk-pixbuf
 
   # under development:
-  jarvus/gconf2
+  #jarvus/gconf2
 )
 pkg_bin_dirs=(bin)
 
