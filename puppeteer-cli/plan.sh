@@ -26,6 +26,7 @@ pkg_deps=(
   core/libxfixes
   core/atk
   core/gdk-pixbuf
+  core/libxrandr
 
   # under development:
   #jarvus/gconf2
