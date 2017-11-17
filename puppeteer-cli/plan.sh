@@ -51,9 +51,9 @@ do_build () {
     -exec patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" --set-rpath "${LD_RUN_PATH}" {} \;
 
   # DEBUG DEPENDENCIES:
-  ldd node_modules/puppeteer/.local-chromium/linux-515411/chrome-linux/chrome > /src/chrome-ldd.txt
-  cat /src/chrome-ldd.txt
-  attach
+  ldd node_modules/puppeteer/.local-chromium/linux-515411/chrome-linux/chrome > /src/puppeteer-cli/chrome-ldd.txt
+  cat /src/puppeteer-cli/chrome-ldd.txt
+  return 1
   # END DEBUG
 
   popd > /dev/null
