@@ -16,7 +16,11 @@ queue_directory = {{pkg.svc_data_path}}/queue
 disable_dns_lookups = yes
 
 
+myhostname = {{cfg.myhostname}}
+mydomain = {{cfg.mydomain}}
+
 mynetworks = {{cfg.mynetworks}}
 mydestination = {{cfg.mydestination}}
+
 mail_owner = {{cfg.mail_owner}}
 setgid_group = {{cfg.setgid_group}}
