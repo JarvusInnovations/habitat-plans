@@ -8,6 +8,10 @@ Postfix is hardcoded to use syslog via `/dev/log`, which is not available by def
 
 `busybox-static` contains `syslogd` which can provide a minimal logging interface that writes to `/var/log/messages`. Start it within a studio before starting postfix with `hab pkg exec core/busybox-static syslogd -n &`
 
+## Testing
+
+To test with the default configuration, ensure that `localhost.localdomain` is an additional name for your `localhost` entry in your host machine's `/etc/hosts`
+
 
 ## References
 
