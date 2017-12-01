@@ -5,6 +5,7 @@ pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_license=('IPL-1.0')
 pkg_source="http://cdn.postfix.johnriley.me/mirrors/${pkg_name}-release/official/${pkg_name}-${pkg_version}.tar.gz"
 pkg_shasum="ec55ebaa2aa464792af8d5ee103eb68b27a42dc2b36a02fee42dafbf9740c7f6"
+pkg_plan_source="https://github.com/JarvusInnovations/habitat-plans/tree/master/postfix"
 
 pkg_build_deps=(
   core/make
