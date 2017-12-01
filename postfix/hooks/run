@@ -2,4 +2,4 @@
 
 exec 2>&1
 
-exec master -c {{pkg.svc_config_path}} -d -v
+exec master -c {{pkg.svc_config_path}} -d
