@@ -1,0 +1,5 @@
+mail_owner = "postfix"
+setgid_group = "postdrop"
+
+mynetworks = "127.0.0.0/8"
+mydestination = "localhost"

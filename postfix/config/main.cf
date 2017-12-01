@@ -1,0 +1,22 @@
+daemon_directory = {{pkg.path}}/sbin
+command_directory = {{pkg.path}}/bin
+mailq_path = {{pkg.path}}/bin/mailq
+sendmail_path = {{pkg.path}}/bin/sendmail
+newaliases_path = {{pkg.path}}/bin/newaliases
+shlib_directory = {{pkg.path}}/lib
+meta_directory = {{pkg.path}}/meta
+manpage_directory = {{pkg.path}}/man
+
+config_directory = {{pkg.svc_config_path}}
+data_directory = {{pkg.svc_data_path}}/postfix
+mail_spool_directory = {{pkg.svc_data_path}}/spool
+queue_directory = {{pkg.svc_data_path}}/queue
+
+
+disable_dns_lookups = yes
+
+
+mynetworks = {{cfg.mynetworks}}
+mydestination = {{cfg.mydestination}}
+mail_owner = {{cfg.mail_owner}}
+setgid_group = {{cfg.setgid_group}}

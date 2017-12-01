@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# setup user/group
+useradd {{cfg.mail_owner}}
+groupadd -f {{cfg.setgid_group}}
+
+# setup data/
+cp -vnr {{pkg.path}}/data/* {{pkg.svc_data_path}}/
+chown -R {{cfg.mail_owner}}:{{cfg.setgid_group}} {{pkg.svc_data_path}}
+
+# setup environment
+if [[ ! -f /etc/services ]]; then
+  cp -v {{pkgPathFor "core/iana-etc"}}/etc/services /etc/services
+fi
