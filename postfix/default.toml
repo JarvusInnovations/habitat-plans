@@ -5,4 +5,4 @@ myhostname = "localhost"
 mydomain = "localdomain"
 
 mynetworks = "127.0.0.0/8"
-mydestination = "localhost"
+mydestination = ""

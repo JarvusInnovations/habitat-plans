@@ -20,7 +20,10 @@ myhostname = {{cfg.myhostname}}
 mydomain = {{cfg.mydomain}}
 
 mynetworks = {{cfg.mynetworks}}
-mydestination = {{cfg.mydestination}}
+
+{{ #if cfg.mydestination ~}}
+  mydestination = {{cfg.mydestination}}-
+{{/if ~}}
 
 mail_owner = {{cfg.mail_owner}}
 setgid_group = {{cfg.setgid_group}}
