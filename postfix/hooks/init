@@ -12,3 +12,6 @@ chown -R {{cfg.mail_owner}}:{{cfg.setgid_group}} {{pkg.svc_data_path}}
 if [[ ! -f /etc/services ]]; then
   cp -v {{pkgPathFor "core/iana-etc"}}/etc/services /etc/services
 fi
+
+# initial aliases database
+newaliases -C {{pkg.svc_config_path}}

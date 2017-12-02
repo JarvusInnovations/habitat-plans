@@ -12,6 +12,9 @@ data_directory = {{pkg.svc_data_path}}/postfix
 mail_spool_directory = {{pkg.svc_data_path}}/spool
 queue_directory = {{pkg.svc_data_path}}/queue
 
+alias_database = hash:{{pkg.svc_config_path}}/aliases
+alias_maps = hash:{{pkg.svc_config_path}}/aliases
+
 
 disable_dns_lookups = yes
 
