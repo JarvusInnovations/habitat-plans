@@ -17,6 +17,7 @@ alias_maps = hash:{{pkg.svc_config_path}}/aliases
 
 
 disable_dns_lookups = yes
+command_time_limit = {{cfg.command_time_limit}}
 
 
 myhostname = {{cfg.myhostname}}

@@ -7,6 +7,8 @@ mydomain = "localdomain"
 mynetworks = "127.0.0.0/8"
 mydestination = ""
 
+command_time_limit = "1000s"
+
 [virtual]
 transport = ""
 mailbox_domains = ""
