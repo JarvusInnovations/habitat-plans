@@ -38,3 +38,7 @@ setgid_group = {{cfg.setgid_group}}
 {{#if cfg.virtual.mailbox_domains ~}}
   virtual_mailbox_domains = {{cfg.virtual.mailbox_domains}}
 {{/if ~}}
+
+{{#each cfg.services as |service| ~}}
+  {{service.name}}_destination_recipient_limit = {{service.destination_recipient_limit}}
+{{/each ~}}
