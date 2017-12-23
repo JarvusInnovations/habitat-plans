@@ -40,7 +40,14 @@ do_build() {
 do_install() {
   mkdir "$pkg_prefix/dist"
   ./SenchaCmd-*.sh -q -a -dir "$pkg_prefix/dist"
-  ln -s ../dist/sencha "$pkg_prefix/bin/"
+
+  build_line "Creating command wrapper"
+    cat > "$pkg_prefix/bin/sencha" <<- EOM
+#!/bin/sh
+
+exec $pkg_prefix/dist/sencha \$@
+EOM
+  chmod +x "$pkg_prefix/bin/sencha"
 
   build_line "Patching ELF binaries:"
   find "$pkg_prefix/dist" -type f -executable \
