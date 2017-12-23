@@ -1,0 +1,10 @@
+--- ant/build/app/Boot.dist.js	2017-12-23 23:20:09.216570154 +0000
++++ ant/build/app/Boot.js	2017-12-23 23:25:31.787649026 +0000
+@@ -1119,6 +1119,7 @@
+                     }
+                     
+                     entry = Boot.getEntry(url, {
++                        cache: me.cache,
+                         buster: me.buster,
+                         charset: me.charset
+                     }, item && item.canonicalPath);

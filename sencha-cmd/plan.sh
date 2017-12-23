@@ -9,6 +9,7 @@ pkg_build_deps=(
   core/gzip
   core/which
   core/patchelf
+  core/patch
 )
 pkg_deps=(
   core/jre8
@@ -58,6 +59,9 @@ EOM
   build_line "Creating repo/.sencha directory"
   mkdir -p "${pkg_prefix}/repo"
   chmod 777 "${pkg_prefix}/repo"
+
+  build_line "Applying patches"
+  patch -p0 -i "${PLAN_CONTEXT}/cache.patch" -d "${pkg_prefix}/dist"
 
   return 0
 }
