@@ -13,6 +13,13 @@ script/update
 
 echo "==> Unloading habitat service jarvus/postfix…"
 hab sup unload jarvus/postfix
+sleep 1
+
+
+echo "==> Starting syslogd daemon…"
+rm /dev/log
+hab pkg exec core/busybox-static syslogd -n &
+sleep 1
 
 
 echo "==> Loading habitat service jarvus/postfix…"
