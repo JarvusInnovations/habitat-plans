@@ -34,10 +34,27 @@ pkg_svc_user=root
 
 
 do_build() {
-  make makefiles \
-    CCARGS="-DHAS_DB -I$(pkg_path_for db)/include -DHAS_NIS -I$(pkg_path_for glibc)/include -DUSE_TLS -I$(pkg_path_for openssl)/include" \
-    AUXLIBS="-ldb -L$(pkg_path_for db)/lib -lnsl -lresolv -L$(pkg_path_for glibc)/lib -lssl -lcrypto -L$(pkg_path_for openssl)/lib"
+  POSTFIX_CCARGS=(
+    -DHAS_DB
+      -I$(pkg_path_for db)/include
+    -DHAS_NIS
+      -I$(pkg_path_for glibc)/include
+    -DUSE_TLS
+      -I$(pkg_path_for openssl)/include
+  )
+  build_line "Setting POSTFIX_CCARGS=${POSTFIX_CCARGS[*]}"
 
+  POSTFIX_AUXLIBS=(
+    -ldb
+      -L$(pkg_path_for db)/lib
+    -lnsl -lresolv
+      -L$(pkg_path_for glibc)/lib
+    -lssl -lcrypto
+      -L$(pkg_path_for openssl)/lib
+  )
+  build_line "Setting POSTFIX_AUXLIBS=${POSTFIX_AUXLIBS[*]}"
+
+  make makefiles CCARGS="${POSTFIX_CCARGS[*]}" AUXLIBS="${POSTFIX_AUXLIBS[*]}"
   make
 }
 
