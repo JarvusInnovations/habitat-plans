@@ -12,6 +12,56 @@ Postfix is hardcoded to use syslog via `/dev/log`, which is not available by def
 
 To test with the default configuration, ensure that `localhost.localdomain` is an additional name for your `localhost` entry in your host machine's `/etc/hosts`
 
+### Start in studio
+
+1. Run `build` at least once to have at least one build available under `./results/`, re-run as needed
+1. Run `script/server` to start syslogd, configure postfix service, and (re)load the postfix service
+1. Tail `/var/log/messages` for postfix log output
+
+### Write test emails directly into queue
+
+1. Open socket connection from outside of studio:
+
+    `nc localhost 25`
+
+   - Or, from inside studio:
+
+       `hab pkg install core/netcat && hab pkg exec core/netcat nc localhost 25`
+1. Start SMTP session:
+
+    `ehlo localhost.localdomain`
+
+1. Set sender:
+
+    `mail from: tester@example.com`
+
+1. Set recipient:
+
+    `rcpt to: root@localhost`
+
+1. Set message:
+
+    ```smtp
+    data
+    Subject: Hello world!
+
+    This is the body of my email.
+
+    Have a good day.
+
+    .
+
+    ```
+
+    *Message is terminated by <kbd>[enter]</kbd><kbd>.</kbd><kbd>[enter]</kbd>*
+
+1. Close SMTP session:
+
+    `quit`
+
+1. Read the mailbox from within the studio:
+
+    `less /hab/svc/postfix/data/spool/root`
 
 ## References
 
