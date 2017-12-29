@@ -21,6 +21,7 @@ pkg_deps=(
   core/db
   core/pcre
   core/openssl
+  core/cyrus-sasl
 
   # plan/hook deps
   core/shadow
@@ -41,6 +42,8 @@ do_build() {
       -I$(pkg_path_for glibc)/include
     -DUSE_TLS
       -I$(pkg_path_for openssl)/include
+    -DUSE_SASL_AUTH -DUSE_CYRUS_SASL
+      -I$(pkg_path_for cyrus-sasl)/include/sasl
   )
   build_line "Setting POSTFIX_CCARGS=${POSTFIX_CCARGS[*]}"
 
@@ -51,6 +54,8 @@ do_build() {
       -L$(pkg_path_for glibc)/lib
     -lssl -lcrypto
       -L$(pkg_path_for openssl)/lib
+    -lsasl2
+      -L$(pkg_path_for cyrus-sasl)/lib
   )
   build_line "Setting POSTFIX_AUXLIBS=${POSTFIX_AUXLIBS[*]}"
 
