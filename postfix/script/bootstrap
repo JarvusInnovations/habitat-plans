@@ -8,9 +8,4 @@ set -e
 cd "$(dirname "$0")/.."
 
 
-echo "==> Setting depot channel to unstable…"
-export HAB_DEPOT_CHANNEL=unstable
-
-
-#echo "==> Installing habitat package for postfix…"
-#hab pkg install jarvus/postfix
+echo "==> TODO: ensure running inside habitat studio…"
