@@ -27,7 +27,7 @@ inet_interfaces = {{cfg.inet_interfaces}}
 smtpd_relay_restrictions = {{cfg.smtpd_relay_restrictions}}
 mynetworks = {{cfg.mynetworks}}
 {{#if cfg.mydestination ~}}
-  mydestination = {{cfg.mydestination}}-
+  mydestination = {{cfg.mydestination}}
 {{/if ~}}
 
 mail_owner = {{cfg.mail_owner}}
