@@ -11,6 +11,17 @@ smtpd_relay_restrictions = "permit_mynetworks permit_sasl_authenticated defer_un
 
 command_time_limit = "1000s"
 
+relayhost = false
+
 [virtual]
 transport = ""
 mailbox_domains = ""
+
+[smtp.sasl]
+auth_enable = true
+password_maps = false
+security_options = "noanonymous"
+
+[smtp.tls]
+security_level = "may"
+loglevel = 1
