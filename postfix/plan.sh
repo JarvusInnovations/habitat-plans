@@ -20,6 +20,7 @@ pkg_deps=(
   core/glibc
   core/db
   core/pcre
+  core/openssl
 
   # plan/hook deps
   core/shadow
@@ -34,8 +35,8 @@ pkg_svc_user=root
 
 do_build() {
   make makefiles \
-    CCARGS="-DHAS_DB -I$(pkg_path_for db)/include -DHAS_NIS -I$(pkg_path_for glibc)/include" \
-    AUXLIBS="-ldb -L$(pkg_path_for db)/lib -lnsl -lresolv -L$(pkg_path_for glibc)/lib"
+    CCARGS="-DHAS_DB -I$(pkg_path_for db)/include -DHAS_NIS -I$(pkg_path_for glibc)/include -DUSE_TLS -I$(pkg_path_for openssl)/include" \
+    AUXLIBS="-ldb -L$(pkg_path_for db)/lib -lnsl -lresolv -L$(pkg_path_for glibc)/lib -lssl -lcrypto -L$(pkg_path_for openssl)/lib"
 
   make
 }
