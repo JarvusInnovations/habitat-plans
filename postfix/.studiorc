@@ -3,10 +3,10 @@
 
 # setup syslogd
 echo
-hab pkg install core/busybox-static
-
-echo
 echo "--> Launching syslogd in the background for postfix debugging..."
+
+echo "    Installing: core/busybox-static"
+hab pkg install core/busybox-static
 
 [[ -S /dev/log ]] && echo "    Erasing: /dev/log" && rm /dev/log
 
