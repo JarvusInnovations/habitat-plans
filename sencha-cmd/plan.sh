@@ -40,7 +40,7 @@ do_build() {
 
 do_install() {
   mkdir "$pkg_prefix/dist"
-  ./SenchaCmd-*.sh -q -a -dir "$pkg_prefix/dist"
+  ./SenchaCmd-*.sh -Dall=true -q -dir "$pkg_prefix/dist"
 
   build_line "Creating command wrapper"
     cat > "$pkg_prefix/bin/sencha" <<- EOM
