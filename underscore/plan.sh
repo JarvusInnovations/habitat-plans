@@ -14,12 +14,7 @@ pkg_bin_dirs=(bin)
 pkg_filename="underscore-cli-${pkg_version}.tar.gz"
 pkg_dirname="underscore-cli-${pkg_version}"
 
-pkg_build_deps=(
-  core/git
-)
-
 pkg_deps=(
-  core/coreutils
   core/node
 )
 
@@ -32,7 +27,7 @@ do_build() {
   npm install
 
   build_line "Fixing interpreter"
-  fix_interpreter "bin/*" core/coreutils bin/env
+  sed -e "s#\#\!/usr/bin/env node#\#\!$(pkg_path_for node)/bin/node#" --in-place "bin/underscore"
 
   popd > /dev/null
 }
