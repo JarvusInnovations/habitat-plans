@@ -49,3 +49,9 @@ do_build() {
 
   make
 }
+
+do_install() {
+  do_default_install || return $?
+
+  rm -r "${pkg_prefix}/var"
+}
