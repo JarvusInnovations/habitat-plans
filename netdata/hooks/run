@@ -1,0 +1,10 @@
+#!/bin/sh
+
+exec 2>&1
+
+netdata \
+    -D \
+    -c {{ pkg.svc_config_path }}/ \
+    -i {{ cfg.server.address }} \
+    -p {{ cfg.server.port }} \
+    -u {{ pkg.svc_user }}

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+exec 2>&1
+
+cp --no-clobber --recursive "{{ pkg.path }}/etc/netdata" "{{ pkg.svc_config_path }}"
+
+mkdir -p "{{ pkg.svc_var_path }}/log/netdata" "{{ pkg.svc_var_path }}/cache/netdata" "{{ pkg.svc_var_path }}/lib/netdata"
+chown -R hab:hab "{{ pkg.svc_var_path }}/log"
