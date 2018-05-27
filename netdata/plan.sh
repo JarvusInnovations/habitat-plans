@@ -43,7 +43,6 @@ do_build() {
 
   ./configure \
     --prefix="${pkg_prefix}" \
-    --localstatedir="${pkg_svc_var_path}" \
     --with-zlib \
     --with-math \
     --with-user="${pkg_svc_user}"

@@ -4,7 +4,7 @@ exec 2>&1
 
 netdata \
     -D \
-    -c {{ pkg.svc_config_path }}/ \
+    -c {{ pkg.svc_config_path }}/netdata.conf \
     -i {{ cfg.server.address }} \
     -p {{ cfg.server.port }} \
     -u {{ pkg.svc_user }}
