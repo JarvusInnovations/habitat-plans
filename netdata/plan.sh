@@ -33,6 +33,7 @@ pkg_exports=(
   [port]=server.port
 )
 pkg_exposes=(port)
+pkg_svc_run="netdata -D -c ${pkg_svc_config_path}/netdata.conf"
 
 
 do_build() {
