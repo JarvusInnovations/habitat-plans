@@ -1,6 +1,6 @@
---- ant/build/app/Boot.dist.js	2017-12-23 23:20:09.216570154 +0000
-+++ ant/build/app/Boot.js	2017-12-23 23:25:31.787649026 +0000
-@@ -1119,6 +1119,7 @@
+--- templates/SenchaCommon/Boot.dist.js	2018-06-11 04:19:07.505783722 +0000
++++ templates/SenchaCommon/Boot.js	2018-06-11 04:19:52.177343192 +0000
+@@ -1113,6 +1113,7 @@
                      }
                      
                      entry = Boot.getEntry(url, {
@@ -8,3 +8,10 @@
                          buster: me.buster,
                          charset: me.charset
                      }, item && item.canonicalPath);
+@@ -1828,4 +1829,4 @@
+ 
+     output.push(path);
+     return output.join('/');
+-};
+\ No newline at end of file
++};
