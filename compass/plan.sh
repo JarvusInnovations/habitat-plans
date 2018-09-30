@@ -1,5 +1,5 @@
 pkg_name=compass
-pkg_origin=core
+pkg_origin=jarvus
 pkg_version=1.0.3
 pkg_license=('MIT')
 pkg_source=https://github.com/Compass/compass/archive/${pkg_version}.tar.gz
