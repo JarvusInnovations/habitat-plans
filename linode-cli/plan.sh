@@ -1,6 +1,6 @@
 pkg_name=linode-cli
 pkg_origin=core
-pkg_version=2.0.17
+pkg_version=2.0.18
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_license=('BSD-3-Clause')
 pkg_description="The Linode CLI"
