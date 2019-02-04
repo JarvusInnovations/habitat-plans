@@ -44,6 +44,7 @@ do_build() {
     --prefix="${pkg_prefix}" \
     --enable-conffile="${pkg_svc_config_path}/watchman.json" \
     --enable-statedir="${pkg_svc_var_path}" \
+    --enable-lenient \
     --with-pcre \
     --with-python
 
