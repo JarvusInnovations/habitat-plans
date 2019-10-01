@@ -17,6 +17,10 @@ pkg_bin_dirs=(bin)
 
 
 # Callback Functions
+do_setup_environment() {
+  push_runtime_env GCLOUDSDK_PYTHON "$(pkg_path_for core/python2)/bin/python"
+}
+
 do_build() {
   build_line "Fixing interpreters"
   fix_interpreter bin/gcloud core/bash bin/sh
