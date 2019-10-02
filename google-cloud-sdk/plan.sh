@@ -11,6 +11,7 @@ pkg_shasum="7a1644dc98348ca515f78eac54f4b777e9840f47d597b59e30bb85c64744b9f4"
 pkg_deps=(
   core/bash
   core/python2
+  core/kubectl
 )
 
 pkg_bin_dirs=(bin)
