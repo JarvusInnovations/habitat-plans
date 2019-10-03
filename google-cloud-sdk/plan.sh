@@ -12,6 +12,8 @@ pkg_deps=(
   core/bash
   core/python2
   core/kubectl
+  core/git
+  core/openssh
 )
 
 pkg_bin_dirs=(bin)
@@ -19,16 +21,21 @@ pkg_bin_dirs=(bin)
 
 # Callback Functions
 do_setup_environment() {
-  push_runtime_env GCLOUDSDK_PYTHON "$(pkg_path_for core/python2)/bin/python"
+  push_runtime_env CLOUDSDK_PYTHON "$(pkg_path_for core/python2)/bin/python"
+  push_runtime_env CLOUDSDK_ROOT_DIR "${pkg_prefix}"
 }
 
 do_build() {
-  build_line "Fixing interpreters"
-  fix_interpreter bin/gcloud core/bash bin/sh
-  sed -e "s#\#\!/usr/bin/env python#\#\!$(pkg_path_for python2)/bin/python#" --in-place "lib/gcloud.py"
+  build_line "Fixing bash interpreters"
+  fix_interpreter 'bin/*' core/bash bin/sh
+
+  build_line "Fixing python interpreters"
+  {
+    find -L './bin' -type f -executable -print;
+    grep -rwl -m1 './lib' -e 'env python' ;
+  } | xargs sed -e "s#^\#\!\s*/usr/bin/env python#\#\!$(pkg_path_for python2)/bin/python#" --in-place
 }
 
 do_install() {
-  cp -v bin/gcloud "${pkg_prefix}/bin/"
-  cp -r lib/ "${pkg_prefix}/"
+  cp -r ./* "${pkg_prefix}/"
 }
