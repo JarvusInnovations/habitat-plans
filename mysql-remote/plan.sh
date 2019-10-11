@@ -11,8 +11,8 @@ pkg_deps=(
 pkg_exports=(
   [host]=host
   [port]=port
-  [password]=app_password
-  [username]=app_username
+  [password]=password
+  [username]=username
   [server_id]=server_id
 )
 
