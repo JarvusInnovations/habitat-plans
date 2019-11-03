@@ -1,24 +1,16 @@
 pkg_origin=jarvus
 pkg_name=ghostscript
-pkg_version=9.23
+pkg_version=9.50
 
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_license=('AGPLv3')
 pkg_description="Ghostscript is a versatile processor for PostScript data with the ability to render PostScript to different targets."
 pkg_upstream_url=https://www.ghostscript.com/
-pkg_source=https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs923/${pkg_name}-${pkg_version}.tar.gz
-pkg_shasum=f65964807a3c97a2c0810d4b9806585367e73129e57ae33378cea18e07a1ed9b
+pkg_source=https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${pkg_version//.}/${pkg_name}-${pkg_version}.tar.xz
+pkg_shasum=db9bb0817b6f22974e6d5ad751975f346420c2c86a0afcfe6b4e09c47803e7d4
 pkg_deps=(
-  core/glib
-  core/glibc # https://github.com/habitat-sh/habitat/issues/3303
-  core/fontconfig
-  core/freetype
-  core/libjpeg-turbo
-  core/libpng
+  core/glibc
   core/libtiff
-  core/lcms2
-  core/zlib
-  core/openjpeg
 )
 pkg_build_deps=(
   core/coreutils
@@ -38,11 +30,15 @@ pkg_lib_dirs=(lib)
 pkg_pconfig_dirs=(lib/pkgconfig)
 
 do_build() {
-  rm -rf freetype lcms2 jpeg libpng tiff zlib openjpeg
-
-  ./configure --prefix=${pkg_prefix} --disable-compile-inits --enable-dynamic --with-system-libtiff --disable-cups
-  make
-  make so
+  ./configure \
+    --prefix=${pkg_prefix} \
+    --disable-cups \
+    --disable-compile-inits \
+    --disable-gtk \
+    --disable-fontconfig \
+    --without-libidn \
+    --with-system-libtiff \
+    --without-x \
 }
 
 do_install() {
