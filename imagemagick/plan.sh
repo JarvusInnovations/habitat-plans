@@ -10,6 +10,7 @@ pkg_shasum=da2f6fba43d69f20ddb11783f13f77782b0b57783dde9cda39c9e5e733c2013c
 pkg_deps=(
     core/gcc-libs
     core/glibc
+    core/libjpeg-turbo
     core/libpng
     core/xz
     core/zlib
