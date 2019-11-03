@@ -1,8 +1,8 @@
-pkg_origin=mozillareality
+pkg_origin=jarvus
 pkg_name=ghostscript
 pkg_version=9.23
 
-pkg_maintainer="Mozilla Mixed Reality <mixreality@mozilla.com>"
+pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_license=('AGPLv3')
 pkg_description="Ghostscript is a versatile processor for PostScript data with the ability to render PostScript to different targets."
 pkg_upstream_url=https://www.ghostscript.com/
