@@ -1,11 +1,12 @@
 pkg_name=imagemagick
 pkg_origin=jarvus
+pkg_version=7.0.9-2
 pkg_description="A software suite to create, edit, compose, or convert bitmap images."
 pkg_upstream_url="http://imagemagick.org/"
 pkg_license=('Apache2')
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_source=http://www.imagemagick.org/download/releases/ImageMagick-${pkg_version}.tar.xz
-pkg_shasum=da2f6fba43d69f20ddb11783f13f77782b0b57783dde9cda39c9e5e733c2013c
+pkg_shasum=459675a44f4aa1f68ba079b8ba0a83cd1c07b4530a67311082be3c863f601e9a
 pkg_deps=(
     core/gcc-libs
     core/glibc
