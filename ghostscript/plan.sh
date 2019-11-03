@@ -38,7 +38,7 @@ do_build() {
     --disable-fontconfig \
     --without-libidn \
     --with-system-libtiff \
-    --without-x \
+    --without-x
 }
 
 do_install() {
