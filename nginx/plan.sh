@@ -1,8 +1,8 @@
 pkg_name=nginx
-pkg_origin=core
+pkg_origin=jarvus
 pkg_version=1.13.10
 pkg_description="NGINX web server."
-pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
+pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_license=('bsd')
 pkg_source=https://nginx.org/download/nginx-${pkg_version}.tar.gz
 pkg_upstream_url=https://nginx.org/
