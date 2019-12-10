@@ -15,6 +15,6 @@ mkdir -p \
     "{{ pkg.svc_var_path }}/cache" \
     "{{ pkg.svc_var_path }}/lib"
 
-chown -R hab:hab \
+chown -R {{ pkg.svc_user }}:{{ pkg.svc_group }} \
     "{{ pkg.svc_var_path }}/log" \
     "{{ pkg.svc_data_path }}/web"
