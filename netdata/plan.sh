@@ -20,6 +20,7 @@ pkg_deps=(
   core/curl
   core/gawk
   core/glibc
+  core/mysql-client
   core/python
   core/util-linux
   core/zlib
@@ -32,6 +33,16 @@ pkg_exports=(
 )
 pkg_exposes=(port)
 pkg_svc_run="netdata -D -c ${pkg_svc_config_path}/netdata.conf"
+
+
+do_setup_environment() {
+  push_runtime_env PYTHONPATH "${pkg_prefix}/lib/python3.7/site-packages"
+}
+
+do_prepare() {
+  python -m venv "${pkg_prefix}"
+  source "${pkg_prefix}/bin/activate"
+}
 
 do_build() {
   # patch shell script shebang lines to use habitat-provided env
@@ -58,6 +69,10 @@ do_install() {
   find ./libexec/netdata -type f -executable \
     -print \
     -exec bash -c 'sed -e "s#\#\!/usr/bin/env bash#\#\!$1/bin/bash#" --in-place "$2"' _ "$(pkg_path_for bash)" "{}" \;
+
+  build_line "Installing python dependencies"
+  pip install "mysqlclient"
+  pip freeze > requirements.txt
 
   popd > /dev/null
 }
