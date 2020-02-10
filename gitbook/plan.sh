@@ -16,7 +16,7 @@ pkg_dirname="gitbook-updated-cli-${pkg_version}"
 
 pkg_deps=(
   core/git
-  core/node/12.8.0
+  core/node/12.9.0
 )
 
 
