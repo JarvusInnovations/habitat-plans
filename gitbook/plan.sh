@@ -16,7 +16,7 @@ pkg_dirname="gitbook-updated-cli-${pkg_version}"
 
 pkg_deps=(
   core/git
-  core/node
+  core/node/12.8.0
 )
 
 
@@ -30,6 +30,9 @@ do_setup_environment() {
 # implement build workflow
 do_build() {
   pushd "${CACHE_PATH}" > /dev/null
+
+  build_line "Applying known-good package-lock.json"
+  cp -v "${PLAN_CONTEXT}/package-lock.gitbook-cli.json" "./package-lock.json"
 
   build_line "Installing dependencies with NPM"
   npm install --no-progress --quiet --no-audit --production
@@ -55,9 +58,14 @@ do_install() {
   ln -s ../node_modules/gitbook "versions/${gitbook_version}"
   popd > /dev/null
 
-  build_line "Upgrading NPM"
   pushd "${pkg_prefix}/node_modules/gitbook" > /dev/null
-  npm install --no-progress --quiet --no-audit --save npm@latest npmi@latest
+
+  build_line "Applying known-good package-lock.json"
+  cp -v "${PLAN_CONTEXT}/package-lock.gitbook.json" "./package-lock.json"
+
+  build_line "Upgrading NPM"
+  npm install --no-progress --quiet --no-audit --save npm@6 npmi@4
+
   popd > /dev/null
 }
 
