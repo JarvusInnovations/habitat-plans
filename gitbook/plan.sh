@@ -16,7 +16,7 @@ pkg_dirname="gitbook-updated-cli-${pkg_version}"
 
 pkg_deps=(
   core/git
-  core/node/12.9.0
+  core/node
 )
 
 
@@ -64,7 +64,7 @@ do_install() {
   cp -v "${PLAN_CONTEXT}/package-lock.gitbook.json" "./package-lock.json"
 
   build_line "Upgrading NPM"
-  npm install --no-progress --quiet --no-audit --save npm@6 npmi@4
+  npm install --no-progress --quiet --no-audit --save npm@6 npmi@4 fs-extra@8 graceful-fs@4 cpr@3
 
   popd > /dev/null
 }
