@@ -31,9 +31,6 @@ do_setup_environment() {
 do_build() {
   pushd "${CACHE_PATH}" > /dev/null
 
-  build_line "Applying known-good package-lock.json"
-  cp -v "${PLAN_CONTEXT}/package-lock.gitbook-cli.json" "./package-lock.json"
-
   build_line "Installing dependencies with NPM"
   npm install --no-progress --quiet --no-audit --production
 
@@ -59,9 +56,6 @@ do_install() {
   popd > /dev/null
 
   pushd "${pkg_prefix}/node_modules/gitbook" > /dev/null
-
-  build_line "Applying known-good package-lock.json"
-  cp -v "${PLAN_CONTEXT}/package-lock.gitbook.json" "./package-lock.json"
 
   build_line "Upgrading NPM"
   npm install --no-progress --quiet --no-audit --save npm@6 npmi@4 fs-extra@8 graceful-fs@4 cpr@3
