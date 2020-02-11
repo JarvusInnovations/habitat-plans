@@ -1,6 +1,6 @@
 # gitbook
 
-## Incompatibility with node versions > 12.9.0
+## SOLVED: Incompatibility with node versions > 12.9.0
 
 Current hacks keep this plan outputting a functional gitbook CLI, but attempts to increase the node version result in the following error on `gitbook build`:
 
