@@ -8,7 +8,7 @@ pkg_deps=(
   "core/caddy/${pkg_version}"
 )
 
-pkg_svc_run="caddy -conf ${pkg_svc_config_path}/Caddyfile"
+pkg_svc_run="caddy -agree -conf ${pkg_svc_config_path}/Caddyfile"
 pkg_svc_user="root"
 
 pkg_binds=(
