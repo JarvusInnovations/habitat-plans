@@ -10,4 +10,6 @@ http://
 
 gzip
 
-proxy / {{#eachAlive bind.backend.members as |member|}}{{ member.sys.ip }}:{{ member.cfg.port }} {{/eachAlive}}
+proxy / {{#eachAlive bind.backend.members as |member|}}{{ member.sys.ip }}:{{ member.cfg.port }} {{/eachAlive}} {
+    websocket
+}
