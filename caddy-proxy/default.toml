@@ -1,2 +1,4 @@
+hostnames = []
+
 [tls]
 email = false

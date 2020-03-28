@@ -1,11 +1,10 @@
-{{# if cfg.tls.email ~}}
-https://
+0.0.0.0:80
+{{~ # if cfg.tls.email ~}}
+{{~ # each cfg.hostnames as |hostname| ~}}
+, https://{{ hostname }}
+{{~ /each}}
 
-tls {{ cfg.tls.email }} {
-    ask
-}
-{{else ~}}
-http://
+tls {{ cfg.tls.email }}
 {{/if}}
 
 gzip
