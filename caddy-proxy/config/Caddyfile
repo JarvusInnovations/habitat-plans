@@ -1,0 +1,13 @@
+{{# if cfg.tls.email ~}}
+https://
+
+tls {{ cfg.tls.email }} {
+    ask
+}
+{{else ~}}
+http://
+{{/if}}
+
+gzip
+
+proxy / {{#eachAlive bind.backend.members as |member|}}{{ member.sys.ip }}:{{ member.cfg.port }} {{/eachAlive}}
