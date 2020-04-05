@@ -11,12 +11,13 @@ pkg_build_deps=(
   core/autoconf
   core/autogen
   core/automake
-  core/pkg-config
   core/gcc
   core/make
+  core/pkg-config
 )
 pkg_deps=(
   core/bash
+  core/coreutils
   core/curl
   core/gawk
   core/glibc
@@ -24,7 +25,6 @@ pkg_deps=(
   core/python
   core/util-linux
   core/zlib
-  core/coreutils
 )
 pkg_bin_dirs=(sbin)
 pkg_exports=(
