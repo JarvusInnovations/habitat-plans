@@ -24,6 +24,7 @@ pkg_deps=(
   core/libuv
   core/mysql-client
   core/python
+  core/sed
   core/util-linux
   core/zlib
 )
