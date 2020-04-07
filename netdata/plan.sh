@@ -39,6 +39,9 @@ pkg_svc_run="netdata -D -c ${pkg_svc_config_path}/netdata.conf"
 
 do_setup_environment() {
   push_runtime_env PYTHONPATH "${pkg_prefix}/lib/python3.7/site-packages"
+
+  set_runtime_env -f NETDATA_PKG_CONFIG_DIR "${pkg_prefix}/etc/netdata"
+  set_runtime_env -f NETDATA_PKG_WEB_DIR "${pkg_prefix}/share/netdata/web"
 }
 
 do_prepare() {

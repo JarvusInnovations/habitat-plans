@@ -3,11 +3,11 @@
 exec 2>&1
 
 cp --no-clobber --recursive \
-    "{{ pkg.path }}/etc/netdata"/* \
+    "{{ pkg.env.NETDATA_PKG_CONFIG_DIR }}"/* \
     "{{ pkg.svc_config_path }}"
 
 cp --recursive \
-    "{{ pkg.path }}/share/netdata/web" \
+    "{{ pkg.env.NETDATA_PKG_WEB_DIR }}" \
     "{{ pkg.svc_data_path }}/"
 
 mkdir -p \
