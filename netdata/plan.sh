@@ -26,6 +26,7 @@ pkg_deps=(
   core/mysql-client
   core/netcat
   core/node
+  core/postgresql11-client
   core/python
   core/sed
   core/util-linux
