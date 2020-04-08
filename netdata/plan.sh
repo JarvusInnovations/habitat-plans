@@ -58,7 +58,7 @@ do_build() {
   fix_interpreter "./*.sh" core/coreutils bin/env
 
   ACLOCAL_PATH="$(pkg_path_for core/pkg-config)/share/aclocal" autoreconf -ivf
-  ./configure \
+  CFLAGS="${CFLAGS} -O2" ./configure \
     --prefix="${pkg_prefix}" \
     --with-zlib \
     --with-math \
