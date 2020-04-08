@@ -22,9 +22,9 @@ Adapting from [go.d.plugin: Troubleshooting](https://docs.netdata.cloud/collecto
 
 ```bash
 hab pkg exec core/netdata $(hab pkg path core/netdata)/libexec/netdata/plugins.d/go.d.plugin \
-    --config=/hab/svc/netdata/config
-    --debug
-    --modules=nginx
+    --config=/hab/svc/netdata/config \
+    --debug \
+    --modules=mysql
 ```
 
 ## Debugging python modules
