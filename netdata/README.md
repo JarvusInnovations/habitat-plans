@@ -15,3 +15,17 @@ hab svc load core/netdata
 ```
 
 Once it's running, open up the web interface on port 19999: [http://localhost:19999](http://localhost:19999)
+
+## Debugging python modules
+
+Adapting from [How to debug a python module](https://docs.netdata.cloud/collectors/python.d.plugin/#how-to-debug-a-python-module):
+
+```bash
+hab pkg exec core/netdata $(hab pkg path core/netdata)/libexec/netdata/plugins.d/python.d.plugin mysql debug trace
+```
+
+## Enabling additional python modules
+
+Check the tables on [Install Netdata on Linux manually](https://docs.netdata.cloud/packaging/installer/methods/manual/#prepare-your-system) to see if any additional dependencies are required by the desired plugin.
+
+If they are, you will need to fork `plan.sh` to add items to `pkg_deps`. For python dependencies, you will also need to add to the `pip install <pkg1> <pkg2>` line.
