@@ -68,6 +68,9 @@ do_install() {
 
   pushd "${pkg_prefix}" > /dev/null
 
+  # delete edit script, it won't work with Habitat
+  rm "${pkg_prefix}/etc/netdata/edit-config"
+
   build_line "Fixing libexec interpreters"
   find ./libexec/netdata -type f -executable \
     -print \
