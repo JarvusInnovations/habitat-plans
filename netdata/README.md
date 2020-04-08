@@ -21,7 +21,7 @@ Once it's running, open up the web interface on port 19999: [http://localhost:19
 Adapting from [go.d.plugin: Troubleshooting](https://docs.netdata.cloud/collectors/go.d.plugin/#troubleshooting):
 
 ```bash
-hab pkg exec jarvus/netdata $(hab pkg path jarvus/netdata)/libexec/netdata/plugins.d/go.d.plugin \
+hab pkg exec core/netdata $(hab pkg path core/netdata)/libexec/netdata/plugins.d/go.d.plugin \
     --config=/hab/svc/netdata/config
     --debug
     --modules=nginx
@@ -33,7 +33,7 @@ Adapting from [python.d.plugin: How to debug a python module](https://docs.netda
 
 ```bash
 export NETDATA_USER_CONFIG_DIR=/hab/svc/netdata/config
-hab pkg exec jarvus/netdata $(hab pkg path jarvus/netdata)/libexec/netdata/plugins.d/python.d.plugin mysql debug trace
+hab pkg exec core/netdata $(hab pkg path core/netdata)/libexec/netdata/plugins.d/python.d.plugin mysql debug trace
 ```
 
 ## Enabling additional python modules
