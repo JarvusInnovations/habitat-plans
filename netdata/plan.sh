@@ -23,9 +23,12 @@ pkg_deps=(
   core/glibc
   core/libuv
   core/mysql-client
+  core/netcat
+  core/node
   core/python
   core/sed
   core/util-linux
+  core/which
   core/zlib
 )
 pkg_bin_dirs=(sbin)
