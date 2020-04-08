@@ -120,7 +120,8 @@ do_install() {
     -exec bash -c 'sed -e "s#\#\!/usr/bin/env bash#\#\!$1/bin/bash#" --in-place "$2"' _ "$(pkg_path_for bash)" "{}" \;
 
   build_line "Installing python dependencies"
-  pip install "mysqlclient"
+  pip install --upgrade pip
+  pip install "mysqlclient" "psycopg2" "dnspython" "pymongo"
   pip freeze > requirements.txt
 
   build_line "Installing go.d.plugin"
