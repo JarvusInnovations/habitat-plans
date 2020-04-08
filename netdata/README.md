@@ -18,10 +18,11 @@ Once it's running, open up the web interface on port 19999: [http://localhost:19
 
 ## Debugging python modules
 
-Adapting from [How to debug a python module](https://docs.netdata.cloud/collectors/python.d.plugin/#how-to-debug-a-python-module):
+Adapting from [python.d.plugin: How to debug a python module](https://docs.netdata.cloud/collectors/python.d.plugin/#how-to-debug-a-python-module):
 
 ```bash
-hab pkg exec core/netdata $(hab pkg path core/netdata)/libexec/netdata/plugins.d/python.d.plugin mysql debug trace
+export NETDATA_USER_CONFIG_DIR=/hab/svc/netdata/config
+hab pkg exec jarvus/netdata $(hab pkg path jarvus/netdata)/libexec/netdata/plugins.d/python.d.plugin mysql debug trace
 ```
 
 ## Enabling additional python modules
