@@ -4,7 +4,7 @@ exec 2>&1
 
 cp --no-clobber --recursive \
     "{{ pkg.env.NETDATA_PKG_CONFIG_DIR }}"/* \
-    "{{ pkg.svc_config_path }}"
+    "{{ pkg.svc_config_path }}/conf.d"
 
 cp --recursive \
     "{{ pkg.env.NETDATA_PKG_WEB_DIR }}" \

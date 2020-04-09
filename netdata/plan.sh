@@ -41,7 +41,7 @@ pkg_exports=(
 )
 pkg_exposes=(port)
 pkg_svc_user="root"
-pkg_svc_run="netdata -D -c ${pkg_svc_config_path}/netdata.conf"
+pkg_svc_run="netdata -D -c ${pkg_svc_config_path}/conf.d/netdata.conf"
 
 plugin_go_version=0.18.0
 plugin_go_source="https://github.com/netdata/go.d.plugin/archive/v${plugin_go_version}.tar.gz"
@@ -54,6 +54,7 @@ do_setup_environment() {
 
   set_runtime_env -f NETDATA_PKG_CONFIG_DIR "${pkg_prefix}/etc/netdata"
   set_runtime_env -f NETDATA_PKG_WEB_DIR "${pkg_prefix}/share/netdata/web"
+  set_runtime_env -f NETDATA_PKG_PLUGINS_DIR "${pkg_prefix}/libexec/netdata/plugins.d"
 }
 
 do_before() {
