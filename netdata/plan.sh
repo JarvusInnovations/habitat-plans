@@ -22,6 +22,7 @@ pkg_deps=(
   core/curl
   core/gawk
   core/glibc
+  core/grep
   core/libuv
   core/mysql-client
   core/netcat
