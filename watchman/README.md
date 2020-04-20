@@ -27,5 +27,6 @@ The `watchman` client/server command is a compiled binary that can be run via `h
 ### Watch the current directory for changes indefinitely
 
 ```bash
+hab pkg exec jarvus/watchman watchman watch .
 hab pkg exec jarvus/watchman watchman-wait -m 0 .
 ```
