@@ -1,0 +1,6 @@
+#!{{pkgPathFor "core/bash"}}/bin/bash -e
+
+exec 2>&1
+
+mkdir -vp "{{ pkg.svc_var_path }}/state"
+chmod -v 777 "{{ pkg.svc_var_path }}/state"

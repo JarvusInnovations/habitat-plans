@@ -21,6 +21,7 @@ pkg_build_deps=(
 
 
 pkg_deps=(
+  core/bash
   core/gcc-libs
   core/glibc
   core/openssl
@@ -42,8 +43,8 @@ do_build() {
 
   ./configure \
     --prefix="${pkg_prefix}" \
-    --enable-conffile="${pkg_svc_config_path}/watchman.json" \
-    --enable-statedir="${pkg_svc_var_path}" \
+    --enable-conffile="${pkg_svc_config_install_path}/watchman.json" \
+    --enable-statedir="${pkg_svc_var_path}/state" \
     --enable-lenient \
     --with-pcre \
     --with-python
