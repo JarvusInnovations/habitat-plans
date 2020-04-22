@@ -42,7 +42,7 @@ pkg_exports=(
 )
 pkg_exposes=(port)
 pkg_svc_user="root"
-pkg_svc_run="netdata -D -c ${pkg_svc_config_path}/conf.d/netdata.conf"
+pkg_svc_run="netdata -D -c ${pkg_svc_config_path}/netdata.conf"
 
 plugin_go_version=0.18.0
 plugin_go_source="https://github.com/netdata/go.d.plugin/archive/v${plugin_go_version}.tar.gz"
@@ -50,16 +50,20 @@ plugin_go_filename="go.d.plugin-${plugin_go_version}.tar.gz"
 plugin_go_dirname="go.d.plugin-${plugin_go_version}"
 plugin_go_source_shasum=562018e328cbfa6f1e1427af1e4dbb2ab7bd7415c1c36cdcb3ba80e066cc13ec
 
-do_setup_environment() {
-  push_runtime_env PYTHONPATH "${pkg_prefix}/lib/python3.7/site-packages"
+    do_setup_environment() {
+      push_runtime_env PYTHONPATH "${pkg_prefix}/lib/python3.7/site-packages"
 
-  set_runtime_env -f NETDATA_PKG_CONFIG_DIR "${pkg_prefix}/etc/netdata"
-  set_runtime_env -f NETDATA_PKG_WEB_DIR "${pkg_prefix}/share/netdata/web"
-  set_runtime_env -f NETDATA_PKG_PLUGINS_DIR "${pkg_prefix}/libexec/netdata/plugins.d"
-}
+      set_runtime_env -f NETDATA_PKG_CONFIG_DIR "${pkg_prefix}/etc/netdata"
+      set_runtime_env -f NETDATA_PKG_WEB_DIR "${pkg_prefix}/share/netdata/web"
+
+      export HAB_ENV_NETDATA_PKG_PLUGINS_DIR_SEPARATOR="' '"
+      set_runtime_env -f HAB_ENV_NETDATA_PKG_PLUGINS_DIR_SEPARATOR "${HAB_ENV_NETDATA_PKG_PLUGINS_DIR_SEPARATOR}"
+      push_runtime_env NETDATA_PKG_PLUGINS_DIR "${pkg_prefix}/libexec/netdata/plugins.d"
+      push_runtime_env NETDATA_PKG_PLUGINS_DIR "${pkg_prefix}/plugins.d"
+    }
 
 do_before() {
-  plugin_go_cache_path="$HAB_CACHE_SRC_PATH/${plugin_go_dirname}"
+  plugin_go_cache_path="${HAB_CACHE_SRC_PATH}/${plugin_go_dirname}"
 }
 
 do_download() {
@@ -131,6 +135,9 @@ do_install() {
   build_line "Installing go.d.plugin"
   cp -v "${plugin_go_cache_path}/go.d.plugin" "./libexec/netdata/plugins.d/"
   cp -rv "${plugin_go_cache_path}/config"/* "./lib/netdata/conf.d/"
+
+  build_line "Copying local plugins.d"
+  cp -rv "${PLAN_CONTEXT}/plugins.d" "./"
 
   popd > /dev/null
 }
