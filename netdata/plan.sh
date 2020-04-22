@@ -1,12 +1,12 @@
 pkg_name=netdata
 pkg_origin=jarvus
-pkg_version=1.20.0
+pkg_version=1.21.1
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_license=("GPL-3.0-or-later")
 pkg_description="netdata is a system for distributed real-time performance and health monitoring."
 pkg_upstream_url="https://github.com/netdata/netdata"
 pkg_source="https://github.com/netdata/${pkg_name}/archive/v${pkg_version}.tar.gz"
-pkg_shasum=c739e0fa8d6d7f433c0c7c8016b763e8f70519d67f0b5e7eca9ee5318f210d90
+pkg_shasum=60cdde3f1f8bd9035fef6a566053c0a7195d1714b5da6814473263e85382b4a8
 pkg_build_deps=(
   core/autoconf
   core/autogen
