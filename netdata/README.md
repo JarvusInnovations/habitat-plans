@@ -41,3 +41,11 @@ hab pkg exec core/netdata $(hab pkg path core/netdata)/libexec/netdata/plugins.d
 Check the tables on [Install Netdata on Linux manually](https://docs.netdata.cloud/packaging/installer/methods/manual/#prepare-your-system) to see if any additional dependencies are required by the desired plugin.
 
 If they are, you will need to fork `plan.sh` to add items to `pkg_deps`. For python dependencies, you will also need to add to the `pip install <pkg1> <pkg2>` line.
+
+## Debugging local node modules
+
+```bash
+export NETDATA_PLUGINS_DIR=/hab/svc/netdata/plugins.d
+export NETDATA_USER_CONFIG_DIR=/hab/svc/netdata/config
+hab pkg exec core/netdata $(hab pkg path core/netdata)/libexec/netdata/plugins.d/node.d.plugin debug 1 emergence
+```
