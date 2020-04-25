@@ -57,3 +57,5 @@ bg-watch-docs() {
     echo "* job launched to background, use 'kill %<job-id>' to terminate"
     echo
 }
+
+echo
