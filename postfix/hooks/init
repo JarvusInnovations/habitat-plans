@@ -21,4 +21,4 @@ if [[ ! -f /etc/services ]]; then
 fi
 
 # initial aliases database
-newaliases -C {{pkg.svc_config_path}}
+newaliases
