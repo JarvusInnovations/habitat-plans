@@ -3,12 +3,17 @@
 # setup user/group
 id -u {{cfg.mail_owner}} &>/dev/null || useradd {{cfg.mail_owner}}
 groupadd -f {{cfg.setgid_group}}
+gpasswd -a {{cfg.mail_owner}} {{cfg.setgid_group}}
 
 # setup data/
 cp -vnr {{pkg.path}}/data/* {{pkg.svc_data_path}}/
 mkdir -p {{pkg.svc_data_path}}/spool
 chown -R {{cfg.mail_owner}}:{{cfg.setgid_group}} {{pkg.svc_data_path}}
 chmod g+w -R {{pkg.svc_data_path}}/spool
+
+# run sendmail as mail owner
+chown {{cfg.mail_owner}}:hab {{pkg.path}}/bin/sendmail
+chmod ug+s {{pkg.path}}/bin/sendmail
 
 # setup environment
 if [[ ! -f /etc/services ]]; then
