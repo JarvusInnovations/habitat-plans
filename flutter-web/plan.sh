@@ -1,6 +1,6 @@
 pkg_name=flutter-web
 pkg_origin=jarvus
-pkg_version="0.1.0"
+pkg_version="beta"
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_license=("BSD 3-Clause")
 
@@ -64,7 +64,7 @@ do_install() {
 
   build_line "Cloning Flutter SDK"
   rm -r bin
-  git clone --branch beta --depth 1 "https://github.com/flutter/flutter" .
+  git clone --branch "${pkg_version}" --depth 1 "https://github.com/flutter/flutter" .
 
   build_line "Caching Dart SDK"
   mkdir bin/cache
