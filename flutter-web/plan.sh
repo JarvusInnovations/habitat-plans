@@ -29,6 +29,20 @@ cache_dart_filename="dartsdk-${cache_dart_version}.zip"
 cache_dart_shasum=ac2a85c4fd4918b580175d259464dd82b7153236e202265d39cba8d9ef845ba1
 
 
+do_begin() {
+  if [[ ! -e "/usr/bin/env" ]]; then
+    mkdir -p /usr/bin
+    hab pkg binlink core/coreutils env -d /usr/bin
+    _env_binlink=true
+  fi
+
+  if [[ ! -e "/lib64/ld-linux-x86-64.so.2" ]]; then
+    mkdir -p /lib64
+    ln -sv "$(hab pkg path core/glibc)/lib/ld-linux-x86-64.so.2" "/lib64/ld-linux-x86-64.so.2"
+    _ld_solink=true
+  fi
+}
+
 do_download() {
     download_file "${cache_dart_source}" "${cache_dart_filename}" "${cache_dart_shasum}"
 }
@@ -66,11 +80,11 @@ do_install() {
     sed -e "s#\#\!/usr/bin/env bash#\#\!$(pkg_path_for bash)/bin/bash#" -i "${target}"
   done
 
-  build_line "Fixing ELF interpreters"
-  find . -type f -executable \
-      -exec sh -c 'file -i "$1" | grep -q "x-executable; charset=binary"' _ {} \; \
-      -print \
-      -exec patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" {} \;
+  # build_line "Fixing ELF interpreters"
+  # find . -type f -executable \
+  #     -exec sh -c 'file -i "$1" | grep -q "x-\(pie-\)\?executable; charset=binary"' _ {} \; \
+  #     -print \
+  #     -exec patchelf --interpreter "$(pkg_path_for glibc)/lib/ld-linux-x86-64.so.2" {} \;
 
   build_line "Running flutter precache"
   flutter precache \
@@ -96,4 +110,14 @@ do_install() {
   chmod go+w version bin/cache/lockfile bin/cache/*.stamp
 
   popd > /dev/null
+}
+
+do_end() {
+  if [[ -v $_env_binlink ]]; then
+    rm -f "/usr/bin/env"
+  fi
+
+  if [[ -v $_ld_solink ]]; then
+    rm -f "/lib64/ld-linux-x86-64.so.2"
+  fi
 }
