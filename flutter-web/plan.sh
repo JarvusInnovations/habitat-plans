@@ -1,6 +1,6 @@
 pkg_name=flutter-web
 pkg_origin=jarvus
-pkg_version="beta"
+pkg_version="1.18.0-11.1.pre"
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_license=("BSD 3-Clause")
 
