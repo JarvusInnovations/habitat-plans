@@ -106,8 +106,8 @@ do_install() {
   rm -rf "./flutter_web_app"
   popd > /dev/null
 
-  build_line "Making version, cache lockfile, and cache stamps openly writable"
-  chmod go+w version bin/cache/lockfile bin/cache/*.stamp
+  build_line "Making version and cache directory openly writable"
+  chmod -R go+w version bin/cache/
 
   popd > /dev/null
 }
