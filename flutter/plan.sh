@@ -48,6 +48,7 @@ do_setup_environment() {
   set_buildtime_env PUB "${CACHE_PATH}/bin/cache/dart-sdk/bin/pub"
 
   set_runtime_env DART_VM_OPTIONS "--root-certs-file=$(pkg_path_for cacerts)/ssl/certs/cacert.pem"
+  set_runtime_env FLUTTER_SUPPRESS_ANALYTICS "true"
   set_runtime_env FLUTTER_WEB "true"
 }
 
