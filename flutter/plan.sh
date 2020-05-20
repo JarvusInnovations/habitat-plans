@@ -2,7 +2,7 @@
 # - https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/flutter
 # - https://github.com/NixOS/nixpkgs/issues/36759
 
-pkg_name=flutter-web
+pkg_name=flutter
 pkg_origin=jarvus
 pkg_upstream_url="https://flutter.dev"
 pkg_license=("BSD 3-Clause")
