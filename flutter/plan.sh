@@ -99,7 +99,12 @@ do_install() {
   cat <<END_OF_WRAPPER > "bin/flutter"
 #!$(pkg_path_for bash)/bin/bash
 export PUB_CACHE=\${PUB_CACHE:-"\$HOME/.pub-cache"}
-exec ${pkg_prefix}/bin/flutter.real --no-version-check "\$@"
+exec ${pkg_prefix}/bin/cache/dart-sdk/bin/dart \
+  --packages=${pkg_prefix}/packages/flutter_tools/.packages \
+  ${DART_VM_OPTIONS} \
+  ${pkg_prefix}/bin/cache/flutter_tools.snapshot \
+  --no-version-check \
+  "\$@"
 END_OF_WRAPPER
   chmod +x "bin/flutter"
   popd > /dev/null
