@@ -21,6 +21,7 @@ pkg_deps=(
   core/curl
   core/git
   core/glibc
+  core/gzip
   core/tar
   core/unzip
   core/which
