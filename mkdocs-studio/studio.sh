@@ -44,7 +44,7 @@ watch-docs() {
         pip install --upgrade pip;
         pip install mkdocs ${requirements};
 
-        mkdocs serve --dev-addr 0.0.0.0:8000;
+        mkdocs serve --dev-addr "0.0.0.0:${DOCS_PORT:-8000}";
     )
 }
 
