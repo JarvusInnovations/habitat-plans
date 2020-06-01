@@ -1,0 +1,33 @@
+#!{{pkgPathFor "core/bash"}}/bin/bash -e
+
+{{#unless cfg.app.directory}}
+    echo "app.directory must be configured"
+    exit 1
+{{/unless}}
+
+cd "{{cfg.app.directory}}"
+
+exec nodemon
+
+{{~ #if cfg.ext}} \
+    --ext {{strJoin cfg.ext "," }}
+{{~ /if ~}}
+
+{{~ #each cfg.ignore}} \
+    --ignore "{{this}}"
+{{~ /each ~}}
+
+{{~ #if cfg.debug.enabled}} \
+    --inspect="{{cfg.debug.host}}:{{cfg.debug.port}}"
+{{~ /if ~}}
+
+{{~ #if cfg.app.script}} \
+    "{{cfg.app.script}}"
+{{~ /if ~}}
+
+{{~ #each cfg.app.args}} \
+    "{{this}}"
+{{~ /each ~}}
+
+    </dev/null \
+    >> "{{pkg.svc_var_path}}/log" 2>&1

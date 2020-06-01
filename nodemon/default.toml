@@ -1,0 +1,21 @@
+ext = [
+    "js",
+    "json",
+    "yaml",
+    "toml"
+]
+
+ignore = [
+    "habitat/",
+    "scripts/"
+]
+
+[debug]
+enabled = true
+host = "0.0.0.0"
+port = 9229
+
+[app]
+directory = false
+script = false
+args = []
