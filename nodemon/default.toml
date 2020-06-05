@@ -19,3 +19,4 @@ port = 9229
 directory = false
 script = false
 args = []
+log = "app.log"

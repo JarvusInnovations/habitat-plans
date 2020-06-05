@@ -37,4 +37,4 @@ exec nodemon
 {{~ /each ~}}
 
     </dev/null \
-    >> "{{pkg.svc_var_path}}/log" 2>&1
+    {{#if cfg.app.log}}>> "{{pkg.svc_var_path}}/{{cfg.app.log}}{{/if}}" 2>&1
