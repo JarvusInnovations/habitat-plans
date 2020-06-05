@@ -14,6 +14,13 @@ if [ -f "{{pkg.svc_config_path}}/env" ]; then
     set +a
 fi
 
+{{# if cfg.app.env_file }}
+    echo "Loading environment from: {{cfg.app.env_file}}"
+    set -a
+    source "{{cfg.app.env_file}}"
+    set +a
+{{/if}}
+
 exec nodemon
 
 {{~ #if cfg.ext}} \

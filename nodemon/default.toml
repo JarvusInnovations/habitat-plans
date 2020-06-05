@@ -20,3 +20,4 @@ directory = false
 script = false
 args = []
 log = "app.log"
+env_file = false
