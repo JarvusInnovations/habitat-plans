@@ -9,7 +9,6 @@ if [ -z "${DOCS_REPO}" ]; then
     DOCS_REPO="${DOCS_REPO:-/src}"
 fi
 echo "    DOCS_REPO=${DOCS_REPO}"
-echo
 
 
 # set up developer commands
