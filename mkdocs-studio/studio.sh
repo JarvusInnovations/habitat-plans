@@ -13,11 +13,13 @@ echo
 
 
 # set up developer commands
+declare -A STUDIO_HELP
+
 echo
 echo "--> Setting up MkDocs Studio commands..."
 
-echo "    * Use 'watch-docs' to start live-reloading docs server"
-watch-docs() {
+STUDIO_HELP[docs-watch]="start live-reloading docs server"
+docs-watch() {
     local requirements="${DOCS_REQUIREMENTS}"
 
     if [ -z "${requirements}" ]; then
@@ -44,17 +46,21 @@ watch-docs() {
         pip install --upgrade pip;
         pip install mkdocs ${requirements};
 
-        mkdocs serve --dev-addr "0.0.0.0:${DOCS_PORT:-8000}";
+        exec mkdocs serve --dev-addr "0.0.0.0:${DOCS_PORT:-8000}";
     )
 }
 
-echo "    * Use 'bg-watch-docs' to run watch-docs in a background job"
-bg-watch-docs() {
-    watch-docs > /hab/cache/mkdocs.log 2>&1 &
+STUDIO_HELP[docs-start]="start live-reloading docs server in background job"
+docs-start() {
+    echo
+    echo "--> Launching \`mkdocs serve\` in the background..."
+
+    docs-watch > /hab/cache/mkdocs.log 2>&1 &
+    _docs_pid=$!
 
     jobs -l %%
     echo
-    echo "* job launched to background, use 'kill %<job-id>' to terminate"
+    echo "    * job launched to background, use 'kill %<job-id>' or 'kill ${_docs_pid} to terminate"
     echo
 }
 
