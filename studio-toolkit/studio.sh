@@ -5,7 +5,7 @@ declare -A STUDIO_HELP
 echo
 echo "--> Setting up studio toolkit..."
 
-STUDIO_HELP[studio-help]="show all registered studio commands"
+STUDIO_HELP[studio-help]="Show help for all registered studio commands"
 studio-help() {
     echo
     echo "--> Available studio commands:"
