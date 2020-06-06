@@ -11,7 +11,7 @@ echo "--> Setting up studio toolkit..."
 STUDIO_HELP[studio-help]="Show help for all registered studio commands"
 studio-help() {
     echo
-    echo "--> Available studio commands:"
+    echo "--> Available studio commands (run studio-help any time to reprint):"
     echo
 
     local _commandsWidth=$(printf '%s\n' "${!STUDIO_HELP[@]}" | wc -L)
