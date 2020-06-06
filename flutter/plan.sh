@@ -1,6 +1,8 @@
 # References:
 # - https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/compilers/flutter
 # - https://github.com/NixOS/nixpkgs/issues/36759
+#
+# Releases: https://flutter.dev/docs/development/tools/sdk/releases?tab=linux
 
 pkg_name=flutter
 pkg_origin=jarvus
