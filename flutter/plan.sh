@@ -101,7 +101,13 @@ do_install() {
   rm -v bin/flutter.bat
   cat <<END_OF_WRAPPER > "bin/flutter"
 #!$(pkg_path_for bash)/bin/bash
+
+set -a
+source "${pkg_prefix}/RUNTIME_ENVIRONMENT"
+set +a
+
 export PUB_CACHE=\${PUB_CACHE:-"\$HOME/.pub-cache"}
+
 exec ${pkg_prefix}/bin/cache/dart-sdk/bin/dart \
   --packages=${pkg_prefix}/packages/flutter_tools/.packages \
   ${DART_VM_OPTIONS} \
