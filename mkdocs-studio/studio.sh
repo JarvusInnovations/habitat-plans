@@ -62,7 +62,7 @@ docs-start() {
     _docs_pid=$!
 
     echo -n "    Waiting for server"
-    until curl --fail "localhost:${DOCS_PORT:-8000}/index.html" 2>/dev/null >/dev/null; do echo -n "."; sleep .5; done;
+    until hab pkg exec core/curl curl --fail "localhost:${DOCS_PORT:-8000}/index.html" 2>/dev/null >/dev/null; do echo -n "."; sleep .5; done;
     echo
 
     echo
