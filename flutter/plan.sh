@@ -96,7 +96,7 @@ do_install() {
 
   build_line "Wrapping flutter command"
   pushd "${pkg_prefix}" > /dev/null
-  rm -r bin/*
+  rm -v bin/flutter.bat
   cat <<END_OF_WRAPPER > "bin/flutter"
 #!$(pkg_path_for bash)/bin/bash
 export PUB_CACHE=\${PUB_CACHE:-"\$HOME/.pub-cache"}
