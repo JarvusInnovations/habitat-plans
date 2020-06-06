@@ -2,6 +2,9 @@
 
 declare -A STUDIO_HELP
 
+STUDIO_HELP[sup-log]="Tail the Supervisor's output (Ctrl+c to stop)"
+
+
 echo
 echo "--> Setting up studio toolkit..."
 
