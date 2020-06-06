@@ -35,7 +35,7 @@ studio-svc-config() {
 
     local config_pkg_name="$1"
     local config_default="$2"
-    [ -z "$config_pkg_name" -o -z "$config_default" ] && { echo >&2 'Usage: init-user-config pkg_name "[default]\nconfig = value"'; return 1; }
+    [ -z "$config_pkg_name" -o -z "$config_default" ] && { echo >&2 'Usage: studio-svc-config pkg_name "[default]\nconfig = value"'; return 1; }
 
     local config_toml_path="/hab/user/${config_pkg_name}/config/user.toml"
 
