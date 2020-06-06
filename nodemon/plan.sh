@@ -10,7 +10,7 @@ pkg_deps=(
   core/node
 )
 
-pkg_bin_dirs=(bin)
+pkg_bin_dirs=(node_modules/.bin)
 
 do_build() {
   return 0
@@ -22,19 +22,8 @@ do_install() {
   build_line "Installing ${pkg_name}@${pkg_version}"
   npm install "${pkg_name}@${pkg_version}"
 
-  build_line "Generating bin wrapper"
-  cat <<EOF > "bin/nodemon"
-#!$(pkg_path_for bash)/bin/bash
-
-set -a
-source "${pkg_prefix}/RUNTIME_ENVIRONMENT"
-set +a
-
-export PATH="${pkg_prefix}/node_modules/.bin:\${PATH}"
-
-exec $(pkg_path_for node)/bin/node ${pkg_prefix}/node_modules/.bin/nodemon \$@
-EOF
-  chmod -v 755 "bin/nodemon"
+  build_line "Fixing interpreters"
+  sed -e "s#\#\!/usr/bin/env node#\#\!$(pkg_path_for node)/bin/node#" --in-place --follow-symlinks node_modules/.bin/*
 
   popd > /dev/null
 }
