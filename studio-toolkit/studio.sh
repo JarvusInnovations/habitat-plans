@@ -5,8 +5,34 @@ declare -A STUDIO_HELP
 STUDIO_HELP[sup-log]="Tail the Supervisor's output (Ctrl+c to stop)"
 
 
+_setup_developer_user() {
+    echo
+    echo "--> Creating developer:developer user:group..."
+
+    local group_args
+    if [ -n "${STUDIO_DEVELOPER_GID}" ]; then
+        echo "    Using STUDIO_DEVELOPER_GID=${STUDIO_DEVELOPER_GID}"
+        group_args="-g ${STUDIO_DEVELOPER_GID}"
+    fi
+
+    hab pkg exec core/busybox-static addgroup ${group_args} developer
+
+    local user_args
+    if [ -n "${STUDIO_DEVELOPER_UID}" ]; then
+        echo "    Using STUDIO_DEVELOPER_GID=${STUDIO_DEVELOPER_GID}"
+        user_args="-u ${STUDIO_DEVELOPER_UID}"
+    fi
+
+    hab pkg exec core/busybox-static adduser -H -D ${user_args} -G developer developer
+}
+
+if [ "${STUDIO_DEVELOPER}" != "false" ]; then
+    _setup_developer_user
+fi
+
+
 echo
-echo "--> Setting up studio toolkit..."
+echo "--> Setting up studio toolkit commands..."
 
 STUDIO_HELP[studio-help]="Show help for all registered studio commands"
 studio-help() {
