@@ -1,9 +1,11 @@
 pkg_origin=jarvus
 pkg_name=kube-pod-update-status
-pkg_version="master"
+pkg_version="1.0.0"
+pkg_branch="master"
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
-pkg_source="https://github.com/multi-io/kube-pod-update-status/archive/${pkg_version}.zip"
+pkg_source="https://github.com/multi-io/kube-pod-update-status/archive/${pkg_branch}.zip"
 pkg_shasum=bd47cf1079880cad56cd0873d2a3bacab5756e2a33b8f45790c46491a106ac36
+pkg_dirname="${pkg_name}-${pkg_branch}"
 pkg_upstream_url=https://github.com/multi-io/kube-pod-update-status
 pkg_build_deps=(core/git core/go)
 pkg_deps=(core/bash)
