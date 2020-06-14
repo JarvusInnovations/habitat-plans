@@ -83,7 +83,7 @@ docs-stop() {
 
 STUDIO_HELP[docs-log]="Open and follow mkdocs serve output"
 docs-log() {
-    less -R +F ~/mkdocs.log
+    less -r +F ~/mkdocs.log
 }
 
 echo
