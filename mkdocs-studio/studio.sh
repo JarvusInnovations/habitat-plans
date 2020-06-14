@@ -67,6 +67,7 @@ docs-start() {
 
     echo
     echo -e "    \e[1m* MkDocs hot-reload now available: \e[92mhttp://localhost:${DOCS_PORT:-8000}\e[0m"
+    echo -e "    \e[1m* MkDocs output logged to: \e[0m~/mkdocs.log"
 }
 
 STUDIO_HELP[docs-stop]="Stop live-reloading docs server started in background"
