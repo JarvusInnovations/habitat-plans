@@ -23,6 +23,10 @@ fi
 
 exec nodemon
 
+{{~ #each cfg.watch}} \
+    --watch "{{this}}"
+{{~ /each ~}}
+
 {{~ #if cfg.ext}} \
     --ext {{strJoin cfg.ext "," }}
 {{~ /if ~}}
