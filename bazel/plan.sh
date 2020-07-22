@@ -1,13 +1,14 @@
 pkg_name=bazel
 pkg_origin=core
-pkg_version='0.13.0'
+pkg_version='3.4.1'
 pkg_maintainer='The Habitat Maintainers <humans@habitat.sh>'
 pkg_license=('Apache-2.0')
 pkg_description="Build and test software of any size, quickly and reliably"
 pkg_upstream_url='https://www.bazel.build/'
 pkg_source="https://github.com/bazelbuild/bazel/releases/download/${pkg_version}/${pkg_name}-${pkg_version}-dist.zip"
-pkg_shasum='82e9035084660b9c683187618a29aa896f8b05b5f16ae4be42a80b5e5b6a7690'
+pkg_shasum='27af1f11c8f23436915925b25cf6e1fb07fccf2d2a193a307c93437c60f63ba8'
 pkg_build_deps=(
+  core/patchelf
   core/python
   core/protobuf-cpp
   core/gcc
@@ -16,8 +17,9 @@ pkg_build_deps=(
   core/patch
 )
 pkg_deps=(
+  core/bash
   core/glibc
-  core/corretto8
+  core/corretto11
   core/gcc-libs
   core/zip
   core/unzip
@@ -39,14 +41,30 @@ do_build() {
   pushd .. >/dev/null
   export TMPDIR=/tmp
   export LD_LIBRARY_PATH="${LD_RUN_PATH}"
-  ./compile.sh
+  export EXTRA_BAZEL_ARGS="--host_javabase=@local_jdk//:jdk"
+  ./compile.sh || return $?
   popd >/dev/null
 }
 
 do_install() {
   pushd .. >/dev/null
-  mkdir -p "${pkg_prefix}/bin"
-  cp ./output/bazel "${pkg_prefix}/bin/"
+  build_line "Patching binary with rpath: ${LD_RUN_PATH}"
+  patchelf --set-rpath "${LD_RUN_PATH}" ./output/bazel
+  mkdir -p "${pkg_prefix}/"{bin,bin.real}
+  cp ./output/bazel "${pkg_prefix}/bin.real/bazel"
+  cat <<END_OF_WRAPPER > "${pkg_prefix}/bin/bazel"
+#!$(pkg_path_for bash)/bin/bash
+
+set -a
+source "${pkg_prefix}/RUNTIME_ENVIRONMENT"
+set +a
+
+export LD_LIBRARY_PATH="${LD_RUN_PATH}"
+
+exec ${pkg_prefix}/bin.real/bazel \
+  "\$@"
+END_OF_WRAPPER
+  chmod +x "${pkg_prefix}/bin/bazel"
   popd >/dev/null
 }
 
