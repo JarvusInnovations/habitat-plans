@@ -38,6 +38,7 @@ do_prepare() {
 do_build() {
   pushd .. >/dev/null
   export TMPDIR=/tmp
+  export LD_LIBRARY_PATH="${LD_RUN_PATH}"
   ./compile.sh
   popd >/dev/null
 }
