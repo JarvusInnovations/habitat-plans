@@ -8,22 +8,22 @@ pkg_upstream_url='https://www.bazel.build/'
 pkg_source="https://github.com/bazelbuild/bazel/releases/download/${pkg_version}/${pkg_name}-${pkg_version}-dist.zip"
 pkg_shasum='27af1f11c8f23436915925b25cf6e1fb07fccf2d2a193a307c93437c60f63ba8'
 pkg_build_deps=(
-  core/patchelf
-  core/python
-  core/protobuf-cpp
   core/gcc
   core/libarchive
-  core/which
   core/patch
+  core/patchelf
+  core/protobuf-cpp
+  core/python
+  core/which
 )
 pkg_deps=(
   core/bash
-  core/glibc
+  core/coreutils
   core/corretto11
   core/gcc-libs
-  core/zip
+  core/glibc
   core/unzip
-  core/coreutils
+  core/zip
 )
 pkg_bin_dirs=(bin)
 
