@@ -8,20 +8,24 @@ pkg_upstream_url='https://www.bazel.build/'
 pkg_source="https://github.com/bazelbuild/bazel/releases/download/${pkg_version}/${pkg_name}-${pkg_version}-dist.zip"
 pkg_shasum='27af1f11c8f23436915925b25cf6e1fb07fccf2d2a193a307c93437c60f63ba8'
 pkg_build_deps=(
-  core/gcc
   core/libarchive
   core/patch
   core/patchelf
   core/protobuf-cpp
-  core/python
   core/which
 )
 pkg_deps=(
   core/bash
   core/coreutils
   core/corretto11
-  core/gcc-libs
+  core/gawk
+  core/gcc
+  core/git
   core/glibc
+  core/go
+  core/gzip
+  core/python
+  core/tar
   core/unzip
   core/zip
 )
@@ -32,9 +36,13 @@ do_prepare() {
   patch -p1 -i "${PLAN_CONTEXT}/do_not_clear_env.patch"
   popd >/dev/null
   if [[ ! -r /usr/bin/env ]]; then
-    ln -sv "$(pkg_path_for core/coreutils)/bin/env" /usr/bin/env
+    ln -sv "$(pkg_path_for coreutils)/bin/env" /usr/bin/env
     _clean_env=true
   fi
+}
+
+do_setup_environment() {
+ set_runtime_env SSL_CERT_FILE "$(pkg_path_for cacerts)/ssl/certs/cacert.pem"
 }
 
 do_build() {
