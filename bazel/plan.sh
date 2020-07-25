@@ -16,6 +16,7 @@ pkg_build_deps=(
 )
 pkg_deps=(
   core/bash
+  core/cacerts
   core/coreutils
   core/corretto11
   core/gawk
@@ -42,6 +43,7 @@ do_prepare() {
 }
 
 do_setup_environment() {
+#  set_runtime_env SYSTEM_CERTIFICATE_PATH "$(pkg_path_for cacerts)/ssl/certs"
  set_runtime_env SSL_CERT_FILE "$(pkg_path_for cacerts)/ssl/certs/cacert.pem"
 }
 
