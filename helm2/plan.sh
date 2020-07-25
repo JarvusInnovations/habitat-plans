@@ -1,6 +1,6 @@
 go_pkg="k8s.io/helm"
 
-pkg_name=helm
+pkg_name=helm2
 pkg_origin=core
 pkg_version="2.16.9"
 pkg_description="Helm is a tool for managing Kubernetes charts"
