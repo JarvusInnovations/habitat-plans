@@ -8,12 +8,12 @@ pkg_name=flutter
 pkg_origin=jarvus
 pkg_upstream_url="https://flutter.dev"
 pkg_license=("BSD 3-Clause")
-pkg_version="1.22.0-12.4.pre"
-pkg_channel="beta"
+pkg_version="1.22.1"
+pkg_channel="stable"
 pkg_filename="flutter_linux_${pkg_version}-${pkg_channel}.tar.xz" # TODO: drop v prefix beyond 1.15.x
 pkg_dirname="flutter"
 pkg_source="https://storage.googleapis.com/flutter_infra/releases/${pkg_channel}/linux/${pkg_filename}"
-pkg_shasum="684e8ad07e7f87dacdfe9db5f9b5b77bb12b09fb6e7f004890fd2a643d062415"
+pkg_shasum="f04ce668df540433e04935f6d5a94ad74e5da08d25ad759abaa8879c572da650"
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 
 pkg_deps=(
