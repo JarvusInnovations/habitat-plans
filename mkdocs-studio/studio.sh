@@ -58,11 +58,15 @@ docs-start() {
     echo
     echo "--> Launching \`mkdocs serve\` in the background..."
 
+    touch ~/mkdocs.log
+    tail -n 0 -f ~/mkdocs.log | sed 's/^/    /' &
+    _tail_pid=$!
+
     docs-watch > ~/mkdocs.log 2>&1 &
     _docs_pid=$!
 
-    echo -n "    Waiting for server"
-    until hab pkg exec core/curl curl --fail "localhost:${DOCS_PORT:-8000}/index.html" 2>/dev/null >/dev/null; do echo -n "."; sleep .5; done;
+    until hab pkg exec core/curl curl --fail "localhost:${DOCS_PORT:-8000}/index.html" 2>/dev/null >/dev/null; do sleep .5; done;
+    kill $_tail_pid
     echo
 
     echo
