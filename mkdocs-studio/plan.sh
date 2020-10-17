@@ -7,6 +7,7 @@ pkg_description="Studio tools for MkDocs"
 pkg_build_deps=(
 )
 pkg_deps=(
+  core/curl
   jarvus/mkdocs
   jarvus/stoml
 )
