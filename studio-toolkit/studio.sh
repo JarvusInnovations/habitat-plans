@@ -40,10 +40,17 @@ studio-help() {
     echo "--> Available studio commands (run studio-help any time to reprint):"
     echo
 
-    local _commandsWidth=$(printf '%s\n' "${!STUDIO_HELP[@]}" | wc -L)
+    local _commandsWidth
+    local _commandsPad
+    _commandsWidth=$(printf '%s\n' "${!STUDIO_HELP[@]}" | wc -L)
+    _commandsWidth=$(( $_commandsWidth + 2))
+    _commandsPad=$(eval $(echo printf -- '"-%0.s"' {1..$_commandsWidth}))
 
+    IFS=$'\n'
     for command in $(printf '%s\n' "${!STUDIO_HELP[@]}" | sort); do
-        printf "    \e[92m\e[1m%-${_commandsWidth}.${_commandsWidth}s\e[0m  %s\n" "${command}" "${STUDIO_HELP[$command]}"
+        printf '    \e[92m\e[1m%s\e[0m' "${command}"
+        printf '\e[2m%*.*s\e[0m' 0 $((_commandsWidth - ${#command})) "${_commandsPad}"
+        printf '%s\n' "${STUDIO_HELP["$command"]}"
     done
 
     echo
