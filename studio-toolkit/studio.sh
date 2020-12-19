@@ -49,7 +49,7 @@ studio-help() {
     echo
 }
 
-STUDIO_HELP[studio-svc-config]="Write \$2 configuration to /hab/user/\$1/config/user.toml"
+STUDIO_HELP['studio-svc-config <svc> <toml>']="Write <toml> configuration to /hab/user/<svc>/config/user.toml"
 studio-svc-config() {
     local config_force
     if [ "$1" == "--force" ]; then
