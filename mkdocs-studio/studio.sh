@@ -19,15 +19,16 @@ echo "--> Setting up MkDocs Studio commands..."
 
 STUDIO_HELP[docs-watch]="Start live-reloading docs server"
 docs-watch() {
-    local requirements="${DOCS_REQUIREMENTS}"
+    local requirements
+    IFS=' ' read -r -a requirements <<< "${DOCS_REQUIREMENTS}"
 
-    if [ -z "${requirements}" ]; then
+    if [ ${#requirements[@]} -eq 0 ]; then
         echo "\$DOCS_REQUIREMENTS not defined in environment"
         local lens_config_path="${DOCS_REPO}/.holo/branches/${DOCS_HOLOBRANCH:-gh-pages}.lenses/mkdocs.toml"
 
         if [ -f "${lens_config_path}" ]; then
             echo "Loading requirements from ${lens_config_path}"
-            requirements="$(hab pkg exec jarvus/stoml stoml "${lens_config_path}" hololens.requirements)"
+            IFS=' ' read -r -a requirements <<< "$(hab pkg exec jarvus/stoml stoml "${lens_config_path}" hololens.requirements)"
         else
             echo "Also did not find ${lens_config_path}"
         fi
@@ -45,7 +46,7 @@ docs-watch() {
         source "/hab/cache/docs.venv/bin/activate";
 
         pip install --upgrade pip;
-        pip install mkdocs ${requirements};
+        pip install mkdocs "${requirements[@]}";
 
         exec mkdocs serve --dev-addr "0.0.0.0:${DOCS_PORT:-8000}";
     )
