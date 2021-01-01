@@ -26,6 +26,11 @@ docs-watch() {
         echo "\$DOCS_REQUIREMENTS not defined in environment"
         local lens_config_path="${DOCS_REPO}/.holo/branches/${DOCS_HOLOBRANCH:-gh-pages}.lenses/mkdocs.toml"
 
+        if [ ! -f "${lens_config_path}" ]; then
+            echo "Also did not find ${lens_config_path}"
+            lens_config_path="${DOCS_REPO}/.holo/lenses/mkdocs.toml"
+        fi
+
         if [ -f "${lens_config_path}" ]; then
             echo "Loading requirements from ${lens_config_path}"
             IFS=' ' read -r -a requirements <<< "$(hab pkg exec jarvus/stoml stoml "${lens_config_path}" hololens.requirements)"
