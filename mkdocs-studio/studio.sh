@@ -24,7 +24,8 @@ docs-watch() {
 
     if [ ${#requirements[@]} -eq 0 ]; then
         echo "\$DOCS_REQUIREMENTS not defined in environment"
-        local lens_config_path="${DOCS_REPO}/.holo/branches/${DOCS_HOLOBRANCH:-gh-pages}.lenses/mkdocs.toml"
+        local docs_holobranch="${DOCS_HOLOBRANCH:-gh-pages}"
+        local lens_config_path="${DOCS_REPO}/.holo/branches/${docs_holobranch}.lenses/mkdocs.toml"
 
         if [ ! -f "${lens_config_path}" ]; then
             echo "Also did not find ${lens_config_path}"
@@ -36,6 +37,25 @@ docs-watch() {
             IFS=' ' read -r -a requirements <<< "$(hab pkg exec jarvus/stoml stoml "${lens_config_path}" hololens.requirements)"
         else
             echo "Also did not find ${lens_config_path}"
+
+            # try looking inside holobranch
+            echo "Looking for lens within holobranch ${docs_holobranch}"
+            pushd "${DOCS_REPO}" > /dev/null
+            local docs_holo_tree
+            docs_holo_tree="$(git holo project --working --no-lens "${docs_holobranch}")"
+            if [ $? -eq 0 ] && [ -n "${docs_holo_tree}" ]; then
+                lens_config_path="${docs_holo_tree}:.holo/lenses/mkdocs.toml"
+                echo "Looking for ${lens_config_path}"
+
+                if [ "blob" == "$(git cat-file -t "${lens_config_path}")" ]; then
+                    echo "Loading requirements from ${lens_config_path}"
+                    IFS=' ' read -r -a requirements <<< "$(hab pkg exec jarvus/stoml stoml <(git cat-file -p "${lens_config_path}") hololens.requirements)"
+                fi
+
+            else
+                echo "Failed to read projection result"
+            fi
+            popd > /dev/null
         fi
     fi
 
