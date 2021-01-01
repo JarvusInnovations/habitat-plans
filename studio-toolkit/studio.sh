@@ -48,8 +48,8 @@ studio-help() {
 
     IFS=$'\n'
     for command in $(printf '%s\n' "${!STUDIO_HELP[@]}" | sort); do
-        printf '    \e[92m\e[1m%s\e[0m' "${command}"
-        printf '\e[2m%*.*s\e[0m' 0 $((_commandsWidth - ${#command})) "${_commandsPad}"
+        printf '    \e[92m\e[1m%s\e[0m ' "${command}"
+        printf '\e[2m%*.*s\e[0m ' 0 $((_commandsWidth - ${#command})) "${_commandsPad}"
         printf '%s\n' "${STUDIO_HELP["$command"]}"
     done
 
