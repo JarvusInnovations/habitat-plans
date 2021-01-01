@@ -1,6 +1,6 @@
 pkg_name=studio-toolkit
 pkg_origin=jarvus
-pkg_version=1.1.0
+pkg_version=1.1.1
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_license=('MIT')
 pkg_description="Toolkit for providing development environments via Chef Habitat Studios"
