@@ -1,17 +1,16 @@
 diff --git a/dev/devicelab/lib/framework/runner.dart b/dev/devicelab/lib/framework/runner.dart
-index 8e511eefd..fef3cca8b 100644
+index 2e66c83c29..603dcdca1b 100644
 --- a/dev/devicelab/lib/framework/runner.dart
 +++ b/dev/devicelab/lib/framework/runner.dart
-@@ -126,7 +126,7 @@ Future<void> cleanupSystem() async {
-     print('\nTelling Gradle to shut down (JAVA_HOME=$javaHome)');
-     final String gradlewBinaryName = Platform.isWindows ? 'gradlew.bat' : 'gradlew';
-     final Directory tempDir = Directory.systemTemp.createTempSync('flutter_devicelab_shutdown_gradle.');
--    recursiveCopy(Directory(path.join(flutterDirectory.path, 'bin', 'cache', 'artifacts', 'gradle_wrapper')), tempDir);
-+    recursiveCopy(Directory(path.join(globals.fsUtils.homeDirPath, '.cache', 'flutter', 'artifacts', 'gradle_wrapper')), tempDir);
-     copy(File(path.join(path.join(flutterDirectory.path, 'packages', 'flutter_tools'), 'templates', 'app', 'android.tmpl', 'gradle', 'wrapper', 'gradle-wrapper.properties')), Directory(path.join(tempDir.path, 'gradle', 'wrapper')));
-     if (!Platform.isWindows) {
-       await exec(
-diff --git a/packages/flutter_tools/lib/src/asset.dart b/packages/flutter_tools/lib/src/asset.dart
+@@ -140,7 +140,7 @@ Future<void> cleanupSystem() async {
+       print('\nTelling Gradle to shut down (JAVA_HOME=$javaHome)');
+       final String gradlewBinaryName = Platform.isWindows ? 'gradlew.bat' : 'gradlew';
+       final Directory tempDir = Directory.systemTemp.createTempSync('flutter_devicelab_shutdown_gradle.');
+-      recursiveCopy(Directory(path.join(flutterDirectory.path, 'bin', 'cache', 'artifacts', 'gradle_wrapper')), tempDir);
++      recursiveCopy(Directory(path.join(globals.fsUtils.homeDirPath, '.cache', 'flutter', 'artifacts', 'gradle_wrapper')), tempDir);
+       copy(File(path.join(path.join(flutterDirectory.path, 'packages', 'flutter_tools'), 'templates', 'app', 'android.tmpl', 'gradle', 'wrapper', 'gradle-wrapper.properties')), Directory(path.join(tempDir.path, 'gradle', 'wrapper')));
+       if (!Platform.isWindows) {
+         await exec(diff --git a/packages/flutter_tools/lib/src/asset.dart b/packages/flutter_tools/lib/src/asset.dart
 index 6250abfd2..b23eae25b 100644
 --- a/packages/flutter_tools/lib/src/asset.dart
 +++ b/packages/flutter_tools/lib/src/asset.dart
