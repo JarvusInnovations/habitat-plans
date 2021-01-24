@@ -23,7 +23,7 @@ do_install() {
   npm install "${pkg_name}@${pkg_version}"
 
   build_line "Fixing interpreters"
-  sed -e "s#\#\!/usr/bin/env node#\#\!$(pkg_path_for node)/bin/node#" --in-place --follow-symlinks node_modules/.bin/*
+  sed -e "s#\#\!/usr/bin/env node#\#\!$(pkg_path_for node14)/bin/node#" --in-place --follow-symlinks node_modules/.bin/*
 
   popd > /dev/null
 }
