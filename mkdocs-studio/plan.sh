@@ -8,8 +8,10 @@ pkg_build_deps=(
 )
 pkg_deps=(
   core/curl
+  jarvus/hologit
   jarvus/mkdocs
   jarvus/stoml
+  jarvus/yaml-merge
 )
 
 do_build() {
