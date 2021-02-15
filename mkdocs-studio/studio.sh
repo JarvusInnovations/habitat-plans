@@ -60,6 +60,8 @@ docs-watch() {
         [ -d "/hab/cache/mkdocs/parent" ] && rm -r "/hab/cache/mkdocs/parent"
         mkdir -p "/hab/cache/mkdocs/parent"
         git archive "${docs_parent_tree}" --format=tar | (cd "/hab/cache/mkdocs/parent"; tar -xvf -)
+        [ -n "${STUDIO_DEVELOPER_UID}" ] && chown --recursive "${STUDIO_DEVELOPER_UID}" "/hab/cache/mkdocs/parent"
+        [ -n "${STUDIO_DEVELOPER_GID}" ] && chgrp --recursive "${STUDIO_DEVELOPER_GID}" "/hab/cache/mkdocs/parent"
 
 
         if mount | grep -q '/hab/cache/mkdocs/merged/docs'; then
@@ -155,6 +157,7 @@ docs-watch() {
 
     echo
 
+    # chown -vR root:root /hab/cache/mkdocs
     hab pkg exec jarvus/mkdocs python -m venv "/hab/cache/mkdocs/venv"
 
     (
