@@ -1,6 +1,6 @@
 pkg_name=mkdocs-studio
 pkg_origin=jarvus
-pkg_version=2.3.0
+pkg_version=2.4.0
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_license=('MIT')
 pkg_description="Studio tools for MkDocs"
