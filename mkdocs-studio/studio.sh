@@ -37,7 +37,7 @@ docs-watch() {
         echo
         echo "    Getting parent source ref: git holo source ls ${DOCS_PARENT_SOURCE}"
         local docs_parent_ref
-        docs_parent_ref="$(git holo source ls "${DOCS_PARENT_SOURCE}" | awk '{print $2}')"
+        docs_parent_ref="$(cd "${DOCS_REPO}"; git holo source ls "${DOCS_PARENT_SOURCE}" | awk '{print $2}')"
         if [ $? -ne 0 ] || [ -z "${docs_parent_ref}" ]; then
             echo
             echo "    Failed to find ref for source ${DOCS_PARENT_SOURCE}, try: git holo source fetch ${DOCS_PARENT_SOURCE}"
@@ -47,7 +47,7 @@ docs-watch() {
         echo
         echo "    Building parent tree: git holo project --ref=${docs_parent_ref} ${docs_parent_holobranch}"
         local docs_parent_tree
-        docs_parent_tree="$(git holo project --ref="${docs_parent_ref}" "${docs_parent_holobranch}")"
+        docs_parent_tree="$(cd "${DOCS_REPO}"; git holo project --ref="${docs_parent_ref}" "${docs_parent_holobranch}")"
         if [ $? -ne 0 ] || [ -z "${docs_parent_tree}" ]; then
             echo
             echo "    Failed to build tree for parent docs"
@@ -58,7 +58,7 @@ docs-watch() {
         echo "    Exporting parent tree: ${docs_parent_tree}"
         [ -d "/hab/cache/mkdocs/parent" ] && rm -r "/hab/cache/mkdocs/parent"
         mkdir -p "/hab/cache/mkdocs/parent"
-        git archive "${docs_parent_tree}" --format=tar | (cd "/hab/cache/mkdocs/parent"; tar -xvf -)
+        git --git-dir="${DOCS_REPO}/.git" archive "${docs_parent_tree}" --format=tar | (cd "/hab/cache/mkdocs/parent"; tar -xvf -)
         [ -n "${STUDIO_DEVELOPER_UID}" ] && chown --recursive "${STUDIO_DEVELOPER_UID}" "/hab/cache/mkdocs/parent"
         [ -n "${STUDIO_DEVELOPER_GID}" ] && chgrp --recursive "${STUDIO_DEVELOPER_GID}" "/hab/cache/mkdocs/parent"
 
