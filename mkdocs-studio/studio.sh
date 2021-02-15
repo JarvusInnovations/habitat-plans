@@ -31,7 +31,6 @@ docs-watch() {
         echo "--> Setting up docs overlay with from parent source ${DOCS_PARENT_SOURCE}=>${docs_parent_holobranch}..."
 
         mkdir -p \
-            "/hab/cache/mkdocs/site" \
             "/hab/cache/mkdocs/workdir" \
             "/hab/cache/mkdocs/merged/docs" \
             "${DOCS_REPO}/.git/overlay-workdir/mkdocs"
