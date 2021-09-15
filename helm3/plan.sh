@@ -2,7 +2,7 @@ go_pkg="k8s.io/helm"
 
 pkg_name=helm3
 pkg_origin=core
-pkg_version="3.2.4"
+pkg_version="3.6.3"
 pkg_description="Helm is a tool for managing Kubernetes charts"
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_license=("Apache-2.0")
