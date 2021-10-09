@@ -8,7 +8,7 @@ pkg_source="https://github.com/${pkg_name}/${pkg_name}/archive/v${pkg_version}.t
 pkg_shasum="a5b0b7dfe17d9ec74e3a33415eec4331c61d800d8823621e61c6164e8f88c567"
 
 pkg_deps=(core/glibc)
-pkg_build_deps=(core/go)
+pkg_build_deps=(core/gcc core/go)
 
 pkg_bin_dirs=(bin)
 
