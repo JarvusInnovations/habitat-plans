@@ -7,7 +7,7 @@ pkg_maintainer="Jarvus Innovations <hello@jarv.us>"
 
 pkg_deps=(
   core/bash
-  jarvus/node14
+  core/node14
 )
 
 pkg_bin_dirs=(node_modules/.bin)
