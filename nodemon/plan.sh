@@ -1,6 +1,6 @@
 pkg_name="nodemon"
 pkg_origin="jarvus"
-pkg_version="2.0.5"
+pkg_version="2.0.15"
 pkg_description="nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected."
 pkg_upstream_url="https://nodemon.io/"
 pkg_maintainer="Jarvus Innovations <hello@jarv.us>"
