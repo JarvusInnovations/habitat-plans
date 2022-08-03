@@ -1,12 +1,12 @@
 pkg_name="mjml"
 pkg_origin="jarvus"
-pkg_version="4.0.3"
+pkg_version="4.12.0"
 pkg_description="MJML: the only framework that makes responsive-email easy"
 pkg_upstream_url="https://github.com/mjmlio/mjml"
 pkg_license=("MIT")
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_source="https://github.com/mjmlio/mjml/archive/v${pkg_version}.tar.gz"
-pkg_shasum="f2dc0f91f1d7bfcdaf2a35255e5bfc98ba4d04a986f553e4cf3385a3d95202b2"
+pkg_shasum="a99e2522a6919f9e1bd342e7b1c7222b48a3ff7b325945b6b7accdc8272713b3"
 
 pkg_bin_dirs=(
   packages/mjml/bin
