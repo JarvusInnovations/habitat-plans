@@ -15,7 +15,7 @@ pkg_filename="underscore-cli-${pkg_version}.tar.gz"
 pkg_dirname="underscore-cli-${pkg_version}"
 
 pkg_deps=(
-  core/node
+  core/node16
 )
 
 
