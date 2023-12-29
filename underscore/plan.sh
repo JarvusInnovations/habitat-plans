@@ -27,7 +27,7 @@ do_build() {
   npm install
 
   build_line "Fixing interpreter"
-  sed -e "s#\#\!/usr/bin/env node#\#\!$(pkg_path_for node)/bin/node#" --in-place "bin/underscore"
+  sed -e "s#\#\!/usr/bin/env node#\#\!$(pkg_path_for node16)/bin/node#" --in-place "bin/underscore"
 
   popd > /dev/null
 }
